@@ -22,6 +22,7 @@ app.use(morgan('dev'))
 // add routes
 // 1 test routes
 app.use("/api/v1/test", require('./routes/testRoutes'));
+app.use("/api/v1/auth", require('./routes/authRoutes'));
 
 // add port
 const PORT = process.env.PORT || 8080; //port number for the server to listen on.
