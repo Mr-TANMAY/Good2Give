@@ -8,18 +8,23 @@ import Resources from './pages/Resources';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import User from './pages/User';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 
 function App() {
     return (
         <Router>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/HomePage" element={<Home />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/user" element={<User />} />
+                <Route path="/Login" element={<Login />}/>
+                <Route path="/Register" element={<Register/>} />
+
             </Routes>
             <Footer />
         </Router>
