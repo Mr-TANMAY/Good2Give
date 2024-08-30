@@ -1,0 +1,20 @@
+.goals {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.goals h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.goals .images {
+    display: flex;
+    justify-content: space-around;
+}
+
+.goals .images img {
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+}
