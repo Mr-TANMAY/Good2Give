@@ -10,7 +10,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+/*============================= Form =================================*/
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the body and html take up full height */
 }
+
+
+
+
+

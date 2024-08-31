@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
-
-// Import the user icon from react-icons
 import { FaUser } from 'react-icons/fa';
 
 function Header() {
     const location = useLocation();
     const currentPath = location.pathname;
+
+    // State to manage the dropdown visibility
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    // Function to show the dropdown
+    const showDropdown = () => {
+        setIsDropdownOpen(true);
+    };
+
+    // Function to hide the dropdown with a delay
+    const hideDropdown = () => {
+        setTimeout(() => {
+            setIsDropdownOpen(false);
+        }, 1000); // Short delay to allow moving the mouse to the dropdown
+    };
 
     return (
         <header>
@@ -35,10 +48,24 @@ function Header() {
                     </li>
                 </ul>
             </nav>
-            <div className="user-icon">
-                <Link to="/user">
+            <div
+                className="user-icon"
+                onMouseEnter={showDropdown}
+                onMouseLeave={hideDropdown}
+            >
+                <div className="user-icon-wrapper">
                     <FaUser size={30} /> {/* User icon */}
-                </Link>
+                </div>
+                {isDropdownOpen && (
+                    <div
+                        className="dropdown-menu"
+                        onMouseEnter={showDropdown} // Keep it open when hovering over the dropdown
+                        onMouseLeave={hideDropdown} // Hide when leaving the dropdown area
+                    >
+                        <Link to="/login" className="dropdown-item">Login</Link>
+                        <Link to="/register" className="dropdown-item">Register</Link>
+                    </div>
+                )}
             </div>
         </header>
     );

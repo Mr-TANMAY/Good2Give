@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type:String,
         required:[true,'Please add a role'],
-        enum:['admin','organisation','user', 'hotels', 'shops' ]
+        enum:['admin','organisation','user', 'hotel', 'store' ]
 
     },
 
@@ -31,17 +31,17 @@ const userSchema = new mongoose.Schema({
     hotelName:{
         type:String,
         required:function(){
-            if(this.role === 'hotels'){
+            if(this.role === 'hotel'){
                 return true;
             }
             return false;
         }
     },
 
-    shops: {
+    store: {
         type:String,
         required:function(){
-            if(this.role === 'shops'){
+            if(this.role === 'store'){
                 return true;
             }
             return false;
