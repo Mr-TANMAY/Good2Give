@@ -1,12 +1,113 @@
 .contact {
     padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Light background for better contrast */
+    color: #333; /* Dark text for readability */
 }
 
 .contact h2 {
-    font-size: 2em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem; /* Larger font size for headings */
 }
 
 .contact p {
-    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1rem;
 }
 
+.contact form {
+    max-width: 600px; /* Increased width for better form layout */
+    margin: 0 auto;
+    background-color: #fff; /* White background for the form */
+    padding: 20px; /* Padding around the form elements */
+    border-radius: 8px; /* Rounded corners for the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+.contact div {
+    margin-bottom: 15px;
+}
+
+.contact label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold; /* Bold labels for better readability */
+}
+
+.contact input[type="text"],
+.contact input[type="email"],
+.contact textarea {
+    width: 100%;
+    padding: 10px; /* Increased padding for better input area */
+    border: 1px solid #ddd; /* Light border color */
+    border-radius: 4px;
+    font-size: 1rem; /* Consistent font size for inputs */
+}
+
+.contact textarea {
+    resize: vertical;
+    height: 120px; /* Slightly taller textarea */
+}
+
+.contact button {
+    padding: 12px 20px; /* Larger buttons for better click area */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem; /* Consistent font size for buttons */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.contact button[type="submit"] {
+    background-color: #4CAF50; /* Green background for submit */
+    color: white;
+}
+
+.contact button[type="reset"] {
+    background-color: #f44336; /* Red background for reset */
+    color: white;
+}
+
+.contact button:hover {
+    opacity: 0.8; /* Slightly transparent on hover */
+}
+
+.contact .contact-info {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.contact .contact-info p {
+    font-weight: normal; /* Default font weight for paragraphs */
+    margin: 10px 0;
+    font-size: 1rem; /* Adjusted font size for better readability */
+}
+
+.contact .contact-info p strong {
+    font-weight: bold; /* Bold font for labels */
+}
+
+.contact .contact-info a {
+    color: #2e22d1; /* Green link color */
+    text-decoration: none;
+}
+
+.contact .contact-info a:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+
+.contact .map-embed {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contact .map-embed iframe {
+    width: 100%;
+    height: 400px; /* Increased height for better map view */
+    border: 0;
+    border-radius: 8px; /* Rounded corners for the iframe */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}

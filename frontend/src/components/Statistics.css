@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     padding: 50px 0;
-    background-color: #ecf0f1;
+    
 }
 
 .stat {
@@ -17,5 +17,5 @@
 
 .stat p {
     font-size: 18px;
-    color: #7f8c8d;
+    
 }

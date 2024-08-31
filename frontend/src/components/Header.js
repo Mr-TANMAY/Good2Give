@@ -2,13 +2,20 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
+// Import the user icon from react-icons
+import { FaUser } from 'react-icons/fa';
+
 function Header() {
     const location = useLocation();
     const currentPath = location.pathname;
 
     return (
         <header>
-            <h1>Good 2 Give</h1>
+            <div className="logo">
+                <Link to="/" className="logo-text">
+                    Good2Give
+                </Link>
+            </div>
             <nav>
                 <ul>
                     <li>
@@ -30,7 +37,7 @@ function Header() {
             </nav>
             <div className="user-icon">
                 <Link to="/user">
-                    <img src="path/to/user-icon.png" alt="User" />
+                    <FaUser size={30} /> {/* User icon */}
                 </Link>
             </div>
         </header>
