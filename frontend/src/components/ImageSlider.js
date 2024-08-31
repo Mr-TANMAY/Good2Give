@@ -15,12 +15,15 @@ function ImageSlider() {
     const settings = {
         dots: true, // Show navigation dots
         infinite: true, // Enable continuous loop
-        speed: 4000, // Transition speed in milliseconds
+        speed: 1000, // Transition speed in milliseconds (1 second)
         slidesToShow: 1, // Number of slides to show at a time
         slidesToScroll: 1, // Number of slides to scroll at a time
         autoplay: true, // Enable automatic sliding
-        autoplaySpeed: 6000, // Time between slides in milliseconds
-        arrows: true, // Show navigation arrows
+        autoplaySpeed: 4000, // Time between slides in milliseconds (3 seconds)
+        arrows: false, // Hide navigation arrows
+        pauseOnHover: false, // Do not pause sliding when hovered
+        swipeToSlide: true, // Allow swipe to slide
+        draggable: true, // Allow dragging to slide
     };
 
     return (
