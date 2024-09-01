@@ -1,0 +1,149 @@
+/* Cart.css */
+.cart {
+    padding: 20px;
+}
+
+.cart-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between items */
+}
+
+.cart-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: calc(50% - 20px); /* 2 items per row with space */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space below each item */
+}
+
+.cart-image {
+    max-width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.cart-details {
+    flex: 1;
+}
+
+.cart-price-info {
+    margin-bottom: 10px;
+}
+
+.cart-mrp {
+    display: block;
+    color: #888;
+    text-decoration: line-through;
+}
+
+.cart-discounted-price {
+    display: block;
+    color: #388E3C; /* Dark green shade */
+    font-weight: bold;
+}
+
+.cart-you-save {
+    display: block;
+    color: #dc3545; /* Red for savings */
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.quantity-container {
+    margin-top: 10px;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+}
+
+.cart-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.remove-btn {
+    background-color: #6c757d; /* Grey for remove button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:active {
+    background-color: #5a6268; /* Darker grey for active state */
+}
+
+.buy-now-btn {
+    background-color: #388E3C; /* Dark green for buy now button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-now-btn:active {
+    background-color: #2c6b2f; /* Darker green for active state */
+}
+
+.checkout-btn {
+    background-color: #0033cc; /* Dark blue for checkout button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:active {
+    background-color: #002a80; /* Darker blue for active state */
+}
+
+.clear-cart-btn {
+    background-color: #ff5722; /* Orange for clear cart button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-cart-btn:active {
+    background-color: #e64a19; /* Darker orange for active state */
+}
+
+.checkout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.checkout-container h3 {
+    margin: 10px 0; /* Space between items */
+    color: #388E3C; /* Green for total price */
+}
+
+.checkout-container h3 + h3 {
+    color: #dc3545; /* Red for total savings */
+}
+
+.checkout-buttons {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px;
+}

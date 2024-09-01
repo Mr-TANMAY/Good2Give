@@ -14,12 +14,12 @@ header {
 .logo-text {
     color: white;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
 }
 
-nav {
-    flex: 2;
+.nav-center {
+    flex: 1;
     display: flex;
     justify-content: center;
 }
@@ -36,7 +36,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: rgb(255, 255, 255);
     text-decoration: none;
     font-size: 18px;
 }
@@ -46,16 +46,27 @@ nav ul li a.active {
     text-decoration: underline;
 }
 
-.user-icon {
-    flex: 1;
+.header-icons {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    position: relative;
+    flex: 1;
+}
+
+.header-icons a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px; /* Space between each icon */
+}
+
+.header-icons a:first-child {
+    margin-right: 20px; /* Space between cart and user icon */
 }
 
 .user-icon-wrapper {
     cursor: pointer;
 }
+
 
 /* Dropdown menu styling */
 .dropdown-menu {
@@ -63,12 +74,11 @@ nav ul li a.active {
     position: absolute;
     right: 0;
     top: 40px;
-    background-color: white;
-    border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    background-color:#2c3e50;
 }
 
 .dropdown-item {
@@ -76,10 +86,25 @@ nav ul li a.active {
     padding: 8px 12px;
     color: #333;
     text-decoration: none;
-    white-space: nowrap; /* Ensure text doesn't wrap */
+    white-space: nowrap;
 }
 
 .dropdown-item:hover {
     background-color: #f0f0f0;
     color: #000;
+}
+body.dark-mode header {
+    background-color: #2c3e50; /* Dark mode header background */
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #1d1e1f; /* Consistent dark mode background */
+}
+
+body.dark-mode .dropdown-item {
+    color: #ffffff; /* White text in dark mode */
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: #3a3a3a; /* Darker hover background */
 }
