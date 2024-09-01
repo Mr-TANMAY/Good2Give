@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaShoppingCart } from 'react-icons/fa';
 
 function Header() {
     const location = useLocation();
@@ -29,7 +29,7 @@ function Header() {
                     Good2Give
                 </Link>
             </div>
-            <nav>
+            <nav className="nav-center">
                 <ul>
                     <li>
                         <Link to="/" className={currentPath === "/" ? "active" : ""}>Home</Link>
@@ -48,24 +48,29 @@ function Header() {
                     </li>
                 </ul>
             </nav>
-            <div
-                className="user-icon"
-                onMouseEnter={showDropdown}
-                onMouseLeave={hideDropdown}
-            >
-                <div className="user-icon-wrapper">
-                    <FaUser size={30} /> {/* User icon */}
-                </div>
-                {isDropdownOpen && (
-                    <div
-                        className="dropdown-menu"
-                        onMouseEnter={showDropdown} // Keep it open when hovering over the dropdown
-                        onMouseLeave={hideDropdown} // Hide when leaving the dropdown area
-                    >
-                        <Link to="/login" className="dropdown-item">Login</Link>
-                        <Link to="/register" className="dropdown-item">Register</Link>
+            <div className="header-icons">
+                <Link to="/cart">
+                    <FaShoppingCart size={30} />  {/* Cart icon */}
+                </Link>
+                <div
+                    className="user-icon"
+                    onMouseEnter={showDropdown}
+                    onMouseLeave={hideDropdown}
+                >
+                    <div className="user-icon-wrapper">
+                        <FaUser size={30} /> {/* User icon */}
                     </div>
-                )}
+                    {isDropdownOpen && (
+                        <div
+                            className="dropdown-menu"
+                            onMouseEnter={showDropdown}
+                            onMouseLeave={hideDropdown}
+                        >
+                            <Link to="/login" className="dropdown-item">Login</Link>
+                            <Link to="/register" className="dropdown-item">Register</Link>
+                        </div>
+                    )}
+                </div>
             </div>
         </header>
     );
