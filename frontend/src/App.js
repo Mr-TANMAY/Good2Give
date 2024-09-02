@@ -11,12 +11,15 @@ import User from './pages/User';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Cart from './pages/Cart'; // Import the Cart component
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const [cart, setCart] = useState([]); // Initialize cart state
 
     return (
         <>
+            <ToastContainer/>
             <Header />
             <Routes>
                 <Route path="/" element={<Home cart={cart} setCart={setCart} />} />

@@ -1,76 +1,52 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     role: {
-        type:String,
-        required:[true,'Please add a role'],
-        enum:['admin','organisation','user', 'hotel', 'store' ]
-
+        type: String,
+        required: [true, 'Please add a role'],
+        enum: ['admin', 'organisation', 'user', 'hotel', 'stores']
     },
-
-    name:{
-        type:String,
-        required: function(){
-            if(this.role === 'user' || this.role === 'admin'){
-                return true;
-            }
-            return false;
+    name: {
+        type: String,
+        required: function () {
+            return this.role === 'user' || this.role === 'admin';
         }
     },
-    
-    organisationName:{
-        type:String,
-        required:function(){
-            if(this.role === 'organisation'){
-                return true;
-            }
-            return false;
-        } 
-    },
-
-    hotelName:{
-        type:String,
-        required:function(){
-            if(this.role === 'hotel'){
-                return true;
-            }
-            return false;
+    organisationName: {
+        type: String,
+        required: function () {
+            return this.role === 'organisation';
         }
     },
-
-    store: {
-        type:String,
-        required:function(){
-            if(this.role === 'store'){
-                return true;
-            }
-            return false;
+    hotelName: {
+        type: String,
+        required: function () {
+            return this.role === 'hotel';
         }
     },
-
-    email:{
-        type:String,
-        required:[true,"Please provide an email"],
-        unique:true
+    storeName: {
+        type: String,  // Renamed to 'storeName' for consistency
+        required: function () {
+            return this.role === 'store';
+        }
     },
-    password :{
-        type:String,
-        //encrypted password will be stored here
-        required: [true,'Please add a password']
+    email: {
+        type: String,
+        required: [true, "Please provide an email"],
+        unique: true
     },
-
-    address:{ 
-        type: String ,
-        required:[true,"Please provide an address"]
-
+    password: {
+        type: String,
+        required: [true, 'Please add a password']
     },
-
+    address: {
+        type: String,
+        required: [true, "Please provide an address"]
+    },
     phone: {
-        type: Number ,
-        required:[true,"Please provide a phone number"]
+        type: String,  // Changed to String to accommodate all types of phone numbers
+        required: [true, "Please provide a phone number"]
     }
-
-},{timestamp: true});
-
+}, { timestamps: true });  // Corrected 'timestamp' to 'timestamps'
 
 module.exports = mongoose.model('User', userSchema);
