@@ -1,11 +1,14 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-const PublicRoute = ({ Children }) => {
+const PublicRoute = ({ children }) => {
+  // Check if token exists in localStorage
   if (localStorage.getItem("token")) {
+    // Redirect to the home page if the token is present
     return <Navigate to="/" />;
   } else {
-    return Children;
+    // Render the children if no token is present
+    return children;
   }
 };
 

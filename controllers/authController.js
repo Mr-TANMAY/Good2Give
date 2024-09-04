@@ -9,7 +9,7 @@ const registerController = async(req, res) => {
         // Check if user already exists with same email address, then throw error message to client side.
 
         if(existingUser){
-            return res.status(200).send({
+            return res.status(400).send({
                 success : false,
                 message: 'User already exists with same email address.',
             })
@@ -40,37 +40,54 @@ const registerController = async(req, res) => {
 
 //LOGIN controller to login the user into system and return token for authentication of user.
 
-const  loginController = async(req, res) => {
+const loginController = async (req, res) => {
     try {
-        const user = await userModel.findOne({email : req.body.email})
-        if(!user){return res.status(409).send({
-            success : false, 
-            message: 'Invalid Email Address or Password.'
-            })
-        }
-        //Compare password with hashed password from database and return token to user for authentication of user.
-        const comparePassword = await bcrypt.compare(req.body.password, user.password)
-        if(!comparePassword){return res.status(402).send({ 
-            success : false, 
-            message: 'Invalid Email Address or Password.'
-            })
-        }
-        const token = await jwt.sign({userId : user._id}, process.env.JWT_SECRET, {expiresIn : '1d'});
-        return res.status(200).send({
-            success : true,
-            message : 'User logged into system successfully.',
-            token,
-            user,
+      const { email, password, role } = req.body;
+  
+      // Find the user by email
+      const user = await userModel.findOne({ email });
+      if (!user) {
+        return res.status(401).send({
+          success: false,
+          message: 'Invalid Email Address or Password.',
         });
-        
+      }
+  
+      // Check if the role matches
+      if (user.role !== role) {
+        return res.status(403).send({
+          success: false,
+          message: 'Invalid role. Please select the correct role.',
+        });
+      }
+  
+      // Compare password with hashed password
+      const comparePassword = await bcrypt.compare(password, user.password);
+      if (!comparePassword) {
+        return res.status(401).send({
+          success: false,
+          message: 'Invalid Email Address or Password.',
+        });
+      }
+  
+      // Generate a token for the user
+      const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+      return res.status(200).send({
+        success: true,
+        message: 'User logged into system successfully.',
+        token,
+        user,
+      });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success : false, 
-            message: 'Error in Login API', 
-            error});
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: 'Error in Login API',
+        error,
+      });
     }
-}
+  };
+  
 
 //get current user  data from database and return to client side.
 const currentUserController = async(req, res)=>{

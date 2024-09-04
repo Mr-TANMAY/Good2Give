@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
+import { Link } from "react-router-dom";
+import { handleLogin, handleRegister } from "../../../services/authService";
 
 export const Form = ({ formType, submitBtn, fromTitle }) => {
   const [email, setEmail] = useState("");
@@ -8,20 +10,38 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
   const [name, setName] = useState("");
   const [organisationName, setOrganisationName] = useState("");
   const [hotelName, setHotelName] = useState("");
-  const [store, setStore] = useState("");
+  const [storeName, setStore] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(e) => {
+          if (formType === "Login")
+            return handleLogin(e, email, password, role);
+          else if (formType === "Register")
+            return handleRegister(
+              e,
+              role,
+              name,
+              email,
+              password,
+              organisationName,
+              hotelName,
+              storeName,
+              address,
+              phone
+            );
+        }}
+      >
         <h1 className="text-center">{fromTitle}</h1>
         <hr />
 
-        {/* Role selection only appears for the registration form */}
-        {formType === "Register" && (
-          <div className="d-flex">
-            {["admin", "user", "organisation", "hotel", "store"].map((roleValue) => (
+        {/* Role selection appears for both Login and Register forms */}
+        <div className="d-flex">
+          {["admin", "user", "organisation", "hotel", "stores"].map(
+            (roleValue) => (
               <div className="form-check" key={roleValue}>
                 <input
                   type="radio"
@@ -32,13 +52,16 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
                   checked={role === roleValue}
                   onChange={(e) => setRole(e.target.value)}
                 />
-                <label htmlFor={`${roleValue}Radio`} className="form-check-label">
+                <label
+                  htmlFor={`${roleValue}Radio`}
+                  className="form-check-label"
+                >
                   {roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}
                 </label>
               </div>
-            ))}
-          </div>
-        )}
+            )
+          )}
+        </div>
 
         {/* Conditional rendering based on formType */}
         {(() => {
@@ -96,13 +119,13 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
                     onChange={(e) => setHotelName(e.target.value)}
                   />
                 )}
-                {role === "store" && (
+                {role === "stores" && (
                   <InputType
                     labelText={"Store Name"}
-                    labelFor={"forStore"}
+                    labelFor={"forStoreName"}
                     inputType={"text"}
-                    name={"store"}
-                    value={store}
+                    name={"storeName"}
+                    value={storeName}
                     onChange={(e) => setStore(e.target.value)}
                   />
                 )}
@@ -144,7 +167,17 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
           return null;
         })()}
 
-        <div className="d-flex">
+        <div className="d-flex flex-column justify-content-between">
+          {formType === "Login" ? (
+            <p>
+              Not Register yet? Register
+              <Link to={"/register"}> Here!</Link>
+            </p>
+          ) : (
+            <p>
+              Already Registered?<Link to={"/login"}> Login Now!</Link>
+            </p>
+          )}
           <button className="btn btn-primary" type="submit">
             {submitBtn}
           </button>
