@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { BiUserCircle } from 'react-icons/bi';
 
 function Header() {
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
     const location = useLocation();
     const currentPath = location.pathname;
 
@@ -20,6 +25,21 @@ function Header() {
         setTimeout(() => {
             setIsDropdownOpen(false);
         }, 1000); // Short delay to allow moving the mouse to the dropdown
+    };
+
+    const handleLogout = () => {
+        localStorage.clear();
+        toast("Logout successfully");
+        navigate('/');  // Redirect to home after logout
+    };
+
+    // Handlers for Login and Register buttons
+    const handleLogin = () => {
+        navigate('/login');
+    };
+
+    const handleRegister = () => {
+        navigate('/register');
     };
 
     return (
@@ -46,6 +66,9 @@ function Header() {
                     <li>
                         <Link to="/contact" className={currentPath === "/contact" ? "active" : ""}>Contact</Link>
                     </li>
+                    <li>
+                        <BiUserCircle /> Welcome {user?.role}
+                    </li>
                 </ul>
             </nav>
             <div className="header-icons">
@@ -60,16 +83,30 @@ function Header() {
                     <div className="user-icon-wrapper">
                         <FaUser size={30} /> {/* User icon */}
                     </div>
-                    {isDropdownOpen && (
-                        <div
-                            className="dropdown-menu"
-                            onMouseEnter={showDropdown}
-                            onMouseLeave={hideDropdown}
+                    <div
+                        className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
+                        onMouseEnter={showDropdown}
+                        onMouseLeave={hideDropdown}
+                    >
+                        <button 
+                            className="dropdown-item login-button" 
+                            onClick={handleLogin}
                         >
-                            <Link to="/login" className="dropdown-item">Login</Link>
-                            <Link to="/register" className="dropdown-item">Register</Link>
-                        </div>
-                    )}
+                            Login
+                        </button>
+                        <button 
+                            className="dropdown-item register-button" 
+                            onClick={handleRegister}
+                        >
+                            Register
+                        </button>
+                        <button 
+                            className="dropdown-item logout-button" 
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
