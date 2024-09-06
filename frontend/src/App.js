@@ -40,9 +40,9 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoutes>
+            //<ProtectedRoutes>
               <Home cart={cart} setCart={setCart} />
-            </ProtectedRoutes>
+            //</ProtectedRoutes>
           }
         />
         <Route
