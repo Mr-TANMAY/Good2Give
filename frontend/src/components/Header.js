@@ -67,7 +67,7 @@ function Header() {
                         <Link to="/contact" className={currentPath === "/contact" ? "active" : ""}>Contact</Link>
                     </li>
                     <li>
-                        <BiUserCircle /> Welcome {user?.role}
+                        <BiUserCircle /> Welcome! {user?.role}
                     </li>
                 </ul>
             </nav>
