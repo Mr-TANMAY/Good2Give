@@ -52,15 +52,18 @@
     height: 120px; /* Slightly taller textarea */
 }
 
+/* Button styles */
 .contact button {
-    padding: 12px 20px; /* Larger buttons for better click area */
+    padding: 10px 18px; /* Slightly reduced padding */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem; /* Consistent font size for buttons */
-    transition: background-color 0.3s ease; /* Smooth background color transition */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+    margin-right: 10px; /* Reduced space between buttons */
 }
 
+/* Submit and Reset buttons */
 .contact button[type="submit"] {
     background-color: #4CAF50; /* Green background for submit */
     color: white;
@@ -71,8 +74,10 @@
     color: white;
 }
 
+/* Button hover effects */
 .contact button:hover {
-    opacity: 0.8; /* Slightly transparent on hover */
+    opacity: 0.85; /* Slightly transparent on hover */
+    transform: scale(1.02); /* Slight scaling effect */
 }
 
 .contact .contact-info {
@@ -91,7 +96,7 @@
 }
 
 .contact .contact-info a {
-    color: #2e22d1; /* Green link color */
+    color: #2e22d1; /* Link color */
     text-decoration: none;
 }
 
@@ -110,4 +115,49 @@
     border: 0;
     border-radius: 8px; /* Rounded corners for the iframe */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+/* Dark mode styles */
+.dark-mode .contact {
+    background-color: #121212; /* Dark background */
+    color: #f5f5f5; /* Light text */
+}
+
+.dark-mode .contact h2 {
+    color: #f5f5f5;
+}
+
+.dark-mode .contact form {
+    background-color: #1e1e1e; /* Dark form background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Darker shadow */
+}
+
+.dark-mode .contact input[type="text"],
+.dark-mode .contact input[type="email"],
+.dark-mode .contact textarea {
+    background-color: #333; /* Dark input background */
+    border: 1px solid #555; /* Darker border */
+    color: #f5f5f5; /* Light text */
+}
+
+.dark-mode .contact label {
+    color: #f5f5f5; /* Light label text */
+}
+
+.dark-mode .contact button {
+    background-color: #4CAF50; /* Green button for dark mode */
+    color: white;
+}
+
+.dark-mode .contact button[type="reset"] {
+    background-color: #f44336; /* Red reset button */
+}
+
+.dark-mode .contact button:hover {
+    opacity: 0.9;
+    transform: scale(1.02); /* Slight scaling */
+}
+
+.dark-mode .contact .contact-info a {
+    color: #4640ef; /* Light green for links in dark mode */
 }

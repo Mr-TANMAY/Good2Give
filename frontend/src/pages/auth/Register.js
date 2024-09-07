@@ -1,4 +1,5 @@
 import React from "react";
+import "./Login.css"; // Reuse the same CSS as Login
 import { Form } from "../../components/Shared/Form/Form";
 
 const Register = () => {
@@ -6,7 +7,7 @@ const Register = () => {
     <div id="page-container">
       <div id="content-wrap">
         <div className="row">
-          <div className="loginForm">
+          <div className="authForm">
             <Form
               fromTitle={"Register"}
               submitBtn={"Register Now"}

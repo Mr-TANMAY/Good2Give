@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import API from "../../../services/API";
+import API from "../../../services/API"; // Ensure API is correctly configured
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
+// LOGIN ACTION
 export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ role, email, password }, { rejectWithValue }) => {
@@ -12,27 +12,11 @@ export const userLogin = createAsyncThunk(
       const data = response.data;
 
       if (data.success) {
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("token", data.token);
-        } else {
-          return rejectWithValue("Local storage is not available.");
-        }
+        localStorage.setItem("token", data.token);
         toast.success(data.message);
-
-        // Perform role-based redirection
-        if (data.user.role === "admin") {
-          window.location.replace("/admin");
-        } else if (data.user.role === "organisation") {
-          window.location.replace("/organisation");
-        } else if (data.user.role === "stores") {
-          window.location.replace("/store");
-        } else if (data.user.role === "hotel") {
-          window.location.replace("/hotels");
-        } else {
-          window.location.replace("/user");
-        }
-
-        return data.user;
+        return { user: data.user, token: data.token };
+      } else {
+        return rejectWithValue(data.message || "Login failed");
       }
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message;
@@ -42,8 +26,7 @@ export const userLogin = createAsyncThunk(
   }
 );
 
-
-//register
+// REGISTER ACTION
 export const userRegister = createAsyncThunk(
   "auth/register",
   async (
@@ -75,23 +58,7 @@ export const userRegister = createAsyncThunk(
 
       if (data.success) {
         toast.success("User registered successfully");
-
-        // Perform role-based redirection
-        setTimeout(() => {
-          if (role === "admin") {
-            window.location.replace("/admin");
-          } else if (role === "organisation") {
-            window.location.replace("/organisation");
-          } else if (role === "store") {
-            window.location.replace("/stores");
-          } else if (role === "hotel") {
-            window.location.replace("/hotels");
-          } else {
-            window.location.replace("/user");
-          }
-        }, 1000);
-
-        return data;
+        return { user: data.user, token: data.token };
       } else {
         return rejectWithValue(data.message || "Registration failed");
       }
@@ -103,23 +70,33 @@ export const userRegister = createAsyncThunk(
   }
 );
 
-
-  //current user
-  export const getCurrentUser = createAsyncThunk(
-    "auth/getCurrentUser",
-    async ({ rejectWithValue }) => {
-      try {
-        const res = await API.get("/auth/currentUser");
-        if (res.data) {
-          return res?.data;
-        }
-      } catch (error) {
-        console.log(error);
-        if (error.response && error.response.data.message) {
-          return rejectWithValue(error.response.data.message);
-        } else {
-          return rejectWithValue(error.message);
-        }
+// GET CURRENT USER ACTION
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await API.get("/auth/currentUser");
+      if (res.data.success) {
+        return { user: res.data.user };
       }
+      return rejectWithValue("Failed to fetch current user");
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      return rejectWithValue(errorMessage);
     }
-  );
+  }
+);
+
+// LOGOUT ACTION
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      localStorage.removeItem("token");
+      return;
+    } catch (error) {
+      return rejectWithValue("Logout failed.");
+    }
+  }
+);
+
