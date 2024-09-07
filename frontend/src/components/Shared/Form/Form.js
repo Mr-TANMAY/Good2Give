@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
-import { Link } from "react-router-dom";
-import { handleLogin, handleRegister } from "../../../services/authService";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin, userRegister } from "../../../redux/features/auth/authAction";
 
 export const Form = ({ formType, submitBtn, fromTitle }) => {
   const [email, setEmail] = useState("");
@@ -14,163 +15,159 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, token } = useSelector((state) => state.auth);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formType === "Login") {
+      const resultAction = await dispatch(userLogin({ email, password, role }));
+      if (user?.role === "admin") navigate('/admin');
+      else if (user?.role === "store") navigate('/store');
+      else if (user?.role === "organisation") navigate('/organisation');
+      else if (user?.role === "hotel") navigate('/hotels');
+      else navigate('/user');
+    } else if (formType === "Register") {
+      const resultAction = await dispatch(userRegister({
+        role,
+        name,
+        email,
+        password,
+        organisationName,
+        hotelName,
+        storeName,
+        address,
+        phone,
+      }));
+      navigate('/login'); // Redirect to login after registration
+    }
+  };
+
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          if (formType === "Login")
-            return handleLogin(e, email, password, role);
-          else if (formType === "Register")
-            return handleRegister(
-              e,
-              role,
-              name,
-              email,
-              password,
-              organisationName,
-              hotelName,
-              storeName,
-              address,
-              phone
-            );
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <h1 className="text-center">{fromTitle}</h1>
         <hr />
-
-        {/* Role selection appears for both Login and Register forms */}
         <div className="d-flex">
-          {["admin", "user", "organisation", "hotel", "stores"].map(
-            (roleValue) => (
-              <div className="form-check" key={roleValue}>
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  name="role"
-                  value={roleValue}
-                  id={`${roleValue}Radio`}
-                  checked={role === roleValue}
-                  onChange={(e) => setRole(e.target.value)}
-                />
-                <label
-                  htmlFor={`${roleValue}Radio`}
-                  className="form-check-label"
-                >
-                  {roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}
-                </label>
-              </div>
-            )
-          )}
+          {["admin", "user", "organisation", "hotel", "stores"].map((roleValue) => (
+            <div className="form-check" key={roleValue}>
+              <input
+                type="radio"
+                className="form-check-input"
+                name="role"
+                value={roleValue}
+                id={`${roleValue}Radio`}
+                checked={role === roleValue}
+                onChange={(e) => setRole(e.target.value)}
+              />
+              <label htmlFor={`${roleValue}Radio`} className="form-check-label">
+                {roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}
+              </label>
+            </div>
+          ))}
         </div>
 
-        {/* Conditional rendering based on formType */}
-        {(() => {
-          if (formType === "Login") {
-            return (
-              <>
-                <InputType
-                  labelText={"Email"}
-                  labelFor={"forEmail"}
-                  inputType={"email"}
-                  name={"email"}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <InputType
-                  labelText={"Password"}
-                  labelFor={"forPassword"}
-                  inputType={"password"}
-                  name={"password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </>
-            );
-          } else if (formType === "Register") {
-            return (
-              <>
-                {(role === "admin" || role === "user") && (
-                  <InputType
-                    labelText={"Name"}
-                    labelFor={"forName"}
-                    inputType={"text"}
-                    name={"name"}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                )}
-                {role === "organisation" && (
-                  <InputType
-                    labelText={"Organisation Name"}
-                    labelFor={"forOrganisationName"}
-                    inputType={"text"}
-                    name={"organisationName"}
-                    value={organisationName}
-                    onChange={(e) => setOrganisationName(e.target.value)}
-                  />
-                )}
-                {role === "hotel" && (
-                  <InputType
-                    labelText={"Hotel Name"}
-                    labelFor={"forHotelName"}
-                    inputType={"text"}
-                    name={"hotelName"}
-                    value={hotelName}
-                    onChange={(e) => setHotelName(e.target.value)}
-                  />
-                )}
-                {role === "stores" && (
-                  <InputType
-                    labelText={"Store Name"}
-                    labelFor={"forStoreName"}
-                    inputType={"text"}
-                    name={"storeName"}
-                    value={storeName}
-                    onChange={(e) => setStore(e.target.value)}
-                  />
-                )}
-                <InputType
-                  labelText={"Email"}
-                  labelFor={"forEmail"}
-                  inputType={"email"}
-                  name={"email"}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <InputType
-                  labelText={"Password"}
-                  labelFor={"forPassword"}
-                  inputType={"password"}
-                  name={"password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <InputType
-                  labelText={"Address"}
-                  labelFor={"forAddress"}
-                  inputType={"text"}
-                  name={"address"}
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-                <InputType
-                  labelText={"Phone"}
-                  labelFor={"forPhone"}
-                  inputType={"text"}
-                  name={"phone"}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </>
-            );
-          }
-          return null;
-        })()}
+        {formType === "Login" ? (
+          <>
+            <InputType
+              labelText={"Email"}
+              labelFor={"forEmail"}
+              inputType={"email"}
+              name={"email"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputType
+              labelText={"Password"}
+              labelFor={"forPassword"}
+              inputType={"password"}
+              name={"password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </>
+        ) : (
+          <>
+            {(role === "admin" || role === "user") && (
+              <InputType
+                labelText={"Name"}
+                labelFor={"forName"}
+                inputType={"text"}
+                name={"name"}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            )}
+            {role === "organisation" && (
+              <InputType
+                labelText={"Organisation Name"}
+                labelFor={"forOrganisationName"}
+                inputType={"text"}
+                name={"organisationName"}
+                value={organisationName}
+                onChange={(e) => setOrganisationName(e.target.value)}
+              />
+            )}
+            {role === "hotel" && (
+              <InputType
+                labelText={"Hotel Name"}
+                labelFor={"forHotelName"}
+                inputType={"text"}
+                name={"hotelName"}
+                value={hotelName}
+                onChange={(e) => setHotelName(e.target.value)}
+              />
+            )}
+            {role === "stores" && (
+              <InputType
+                labelText={"Store Name"}
+                labelFor={"forStoreName"}
+                inputType={"text"}
+                name={"storeName"}
+                value={storeName}
+                onChange={(e) => setStore(e.target.value)}
+              />
+            )}
+            <InputType
+              labelText={"Email"}
+              labelFor={"forEmail"}
+              inputType={"email"}
+              name={"email"}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputType
+              labelText={"Password"}
+              labelFor={"forPassword"}
+              inputType={"password"}
+              name={"password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputType
+              labelText={"Address"}
+              labelFor={"forAddress"}
+              inputType={"text"}
+              name={"address"}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <InputType
+              labelText={"Phone"}
+              labelFor={"forPhone"}
+              inputType={"text"}
+              name={"phone"}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </>
+        )}
 
         <div className="d-flex flex-column justify-content-between">
           {formType === "Login" ? (
             <p>
-              Not Register yet? Register
+              Not Registered yet? Register
               <Link to={"/register"}> Here!</Link>
             </p>
           ) : (
@@ -178,7 +175,7 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
               Already Registered?<Link to={"/login"}> Login Now!</Link>
             </p>
           )}
-          <button className="btn btn-primary" type="submit">
+          <button type="submit" className="btn btn-success btn-lg text-light mt-2">
             {submitBtn}
           </button>
         </div>

@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const Hotels = () => {
   return (
-    <div>Hotels</div>
-  )
-}
+    <div>
+      <h1>Hotels Dashboard</h1>
+      <p>Manage hotel listings and bookings.</p>
+      {/* Add hotel-specific functionalities here */}
+    </div>
+  );
+};
 
-export default Hotels
+export default Hotels;

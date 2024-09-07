@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const admin = () => {
+const Admin = () => {
   return (
-    <div>admin</div>
-  )
-}
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p>Manage requests from users, organizations, hotels, and stores.</p>
+      {/* Add admin-specific functionalities here */}
+    </div>
+  );
+};
 
-export default admin
+export default Admin;
