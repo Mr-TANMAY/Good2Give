@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser, userLogin, userRegister } from "./authAction";
+import { userLogin, userRegister, getCurrentUser, logout } from "./authAction";
 
-const token = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : null;
+const token = localStorage.getItem("token") || null;
 
 const initialState = {
   loading: false,
@@ -15,9 +13,15 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    resetAuth: (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
-    //login user
+    // Handle user login
     builder.addCase(userLogin.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -31,9 +35,8 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload;
     });
-    
-    
-    // REGISTER user
+
+    // Handle user registration
     builder.addCase(userRegister.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -41,14 +44,14 @@ const authSlice = createSlice({
     builder.addCase(userRegister.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.user = payload.user;
+      state.token = payload.token;
     });
     builder.addCase(userRegister.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     });
-    
-    
-    // CURRENT user
+
+    // Handle getting current user
     builder.addCase(getCurrentUser.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -61,7 +64,19 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload;
     });
+
+    // Handle logout
+    builder.addCase(logout.fulfilled, (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+    });
+    builder.addCase(logout.rejected, (state, { payload }) => {
+      state.error = payload;
+    });
   },
 });
 
-export default authSlice;
+export const { resetAuth } = authSlice.actions;
+
+export default authSlice.reducer;

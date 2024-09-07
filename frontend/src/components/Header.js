@@ -3,12 +3,15 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux/features/auth/authAction';  // Correct import for logout action
+
 import { BiUserCircle } from 'react-icons/bi';
 
 function Header() {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth); // Get user from Redux store
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
     const currentPath = location.pathname;
 
@@ -28,16 +31,17 @@ function Header() {
     };
 
     const handleLogout = () => {
-        localStorage.clear();
+        localStorage.clear(); // Clear localStorage
+        dispatch(logout());   // Dispatch the logout action from authAction.js
         toast("Logout successfully");
-        navigate('/');  // Redirect to home after logout
+        navigate('/'); // Redirect to home after logout
     };
-
+    
     // Handlers for Login and Register buttons
     const handleLogin = () => {
         navigate('/login');
     };
-
+    
     const handleRegister = () => {
         navigate('/register');
     };
@@ -66,9 +70,11 @@ function Header() {
                     <li>
                         <Link to="/contact" className={currentPath === "/contact" ? "active" : ""}>Contact</Link>
                     </li>
-                    <li>
-                        <BiUserCircle /> Welcome {user?.role}
-                    </li>
+                    {user && (
+                        <li>
+                            <BiUserCircle /> Welcome, {user?.role} {/* Show user role when logged in */}
+                        </li>
+                    )}
                 </ul>
             </nav>
             <div className="header-icons">
@@ -88,24 +94,31 @@ function Header() {
                         onMouseEnter={showDropdown}
                         onMouseLeave={hideDropdown}
                     >
-                        <button 
-                            className="dropdown-item login-button" 
-                            onClick={handleLogin}
-                        >
-                            Login
-                        </button>
-                        <button 
-                            className="dropdown-item register-button" 
-                            onClick={handleRegister}
-                        >
-                            Register
-                        </button>
-                        <button 
-                            className="dropdown-item logout-button" 
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
+                        {user ? (
+                            // Show Logout option if user is logged in
+                            <button 
+                                className="dropdown-item logout-button" 
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <>
+                                {/* Show Login and Register options if user is not logged in */}
+                                <button 
+                                    className="dropdown-item login-button" 
+                                    onClick={handleLogin}
+                                >
+                                    Login
+                                </button>
+                                <button 
+                                    className="dropdown-item register-button" 
+                                    onClick={handleRegister}
+                                >
+                                    Register
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

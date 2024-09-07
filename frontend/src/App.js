@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+// src/App.js
+import React, { useState, useEffect } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
 import Resources from "./pages/Resources";
@@ -11,7 +13,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Cart from "./pages/Cart"; // Import the Cart component
+import Cart from "./pages/Cart";
 import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Organisation from "./pages/Organisation";
@@ -19,45 +21,53 @@ import Store from "./pages/Store";
 import Hotels from "./pages/Hotels";
 import Admin from "./pages/Admin";
 import User from "./pages/User";
+import API from "./services/API";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "./redux/features/auth/authAction";
 
 function App() {
-  const [cart, setCart] = useState([]); // Initialize cart state
+  const [cart, setCart] = useState([]);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await API.get("auth/currentUser");
+        if (data?.success) {
+          dispatch(getCurrentUser(data));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUser();
+  }, [dispatch]);
 
   return (
     <>
       <ToastContainer />
+      <Navbar />
       <Header />
       <Routes>
         {/* Public Routes */}
+        <Route path="/" element={<Home />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-        
+
+        {/* Cart is accessible without login */}
+        <Route path="/cart" element={<Cart cart={cart} />} />
+
         {/* Protected Routes */}
-        <Route
-          path="/"
-          element={
-            //<ProtectedRoutes>
-              <Home cart={cart} setCart={setCart} />
-            //</ProtectedRoutes>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoutes>
-              <Cart cart={cart} />
-            </ProtectedRoutes>
-          }
-        />
         <Route
           path="/admin"
           element={
             <ProtectedRoutes>
-              <Admin />
+              {user?.role === 'admin' ? <Admin /> : <Navigate to="/" />}
             </ProtectedRoutes>
           }
         />
@@ -65,7 +75,7 @@ function App() {
           path="/user"
           element={
             <ProtectedRoutes>
-              <User />
+              {user?.role === 'user' || user?.role === 'ngo' ? <User /> : <Navigate to="/" />}
             </ProtectedRoutes>
           }
         />
@@ -73,7 +83,7 @@ function App() {
           path="/organisation"
           element={
             <ProtectedRoutes>
-              <Organisation />
+              {user?.role === 'ngo' ? <Organisation /> : <Navigate to="/" />}
             </ProtectedRoutes>
           }
         />
@@ -81,7 +91,7 @@ function App() {
           path="/store"
           element={
             <ProtectedRoutes>
-              <Store />
+              {user?.role === 'store' ? <Store /> : <Navigate to="/" />}
             </ProtectedRoutes>
           }
         />
@@ -89,10 +99,13 @@ function App() {
           path="/hotels"
           element={
             <ProtectedRoutes>
-              <Hotels />
+              {user?.role === 'hotel' ? <Hotels /> : <Navigate to="/" />}
             </ProtectedRoutes>
           }
         />
+
+        {/* Fallback Route */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
     </>

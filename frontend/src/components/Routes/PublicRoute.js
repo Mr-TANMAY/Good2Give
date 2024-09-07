@@ -1,9 +1,11 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PublicRoute = ({ children }) => {
-  // Check if token exists in localStorage
-  if (localStorage.getItem("token")) {
+  const { token } = useSelector((state) => state.auth);
+
+  if (token) {
     // Redirect to the home page if the token is present
     return <Navigate to="/" />;
   } else {
