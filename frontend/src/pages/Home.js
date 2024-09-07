@@ -30,8 +30,8 @@ function Home() {
         switch (user.role) {
             case 'admin':
                 return <AdminHome />;
-            case 'store':
-                return <StoreHome.js />;
+            case 'stores':
+                return <StoreHome />;
             case 'organisation':
                 return <OrganisationHome />;
             case 'hotel':

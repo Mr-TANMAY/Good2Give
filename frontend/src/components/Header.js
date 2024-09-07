@@ -45,7 +45,6 @@ function Header() {
     const handleRegister = () => {
         navigate('/register');
     };
-
     return (
         <header>
             <div className="logo">

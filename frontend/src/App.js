@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <Navbar />
+      
       <Header />
       <Routes>
         {/* Public Routes */}

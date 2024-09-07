@@ -36,6 +36,7 @@ nav ul {
 
 nav ul li {
     margin: 0 20px; /* Increased space between menu items */
+    max-width: 150px; /* Set a max width to avoid overflow of long text */
 }
 
 nav ul li a {
@@ -43,12 +44,23 @@ nav ul li a {
     text-decoration: none;
     font-size: 16px; /* Slightly smaller font size */
     transition: color 0.3s ease; /* Smooth color transition */
+    max-width: 150px; /* Set a max width */
+    display: inline-block;
+    word-wrap: break-word; /* Allows long words to break and wrap */
+    white-space: normal; /* Ensure text can wrap onto the next line */
 }
 
 nav ul li a.active {
     font-weight: bold;
     text-decoration: underline;
     color: #ffffff; /* Ensure active link stands out */
+}
+
+/* Styles for the "Welcome, user role" text */
+nav ul li {
+    max-width: 150px; /* Control width for user role */
+    word-wrap: break-word; /* Allows wrapping for long words like "organization" */
+    white-space: normal; /* Ensures text wraps properly */
 }
 
 .header-icons {
