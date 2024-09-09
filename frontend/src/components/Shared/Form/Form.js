@@ -17,19 +17,19 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, token } = useSelector((state) => state.auth);
+  const { user} = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formType === "Login") {
-      const resultAction = await dispatch(userLogin({ email, password, role }));
+      await dispatch(userLogin({ email, password, role }));
       if (user?.role === "admin") navigate('/admin');
       else if (user?.role === "store") navigate('/store');
       else if (user?.role === "organisation") navigate('/organisation');
       else if (user?.role === "hotel") navigate('/hotels');
       else navigate('/user');
     } else if (formType === "Register") {
-      const resultAction = await dispatch(userRegister({
+      await dispatch(userRegister({
         role,
         name,
         email,
@@ -43,6 +43,8 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
       navigate('/login'); // Redirect to login after registration
     }
   };
+  
+  
 
   return (
     <div>

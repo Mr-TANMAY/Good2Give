@@ -1,0 +1,15 @@
+const express = require('express');
+const {addProductController, getProductsController} = require ('../controllers/productController');
+const authMiddleware = require('../middleware/authMiddleware');
+const roleMiddleware = require('../middleware/roleMiddleware')
+const router = express.Router();
+
+//Add product (only for hotels and stores)
+router.post('/add',authMiddleware,roleMiddleware(['hotel', 'stores']), addProductController)
+
+
+//Get available products (accessible to all users)
+router.get('/list', authMiddleware, roleMiddleware(['user', 'organisation']),getProductsController)
+module.exports = router;
+
+

@@ -7,9 +7,9 @@ function Navbar() {
     const dispatch = useDispatch();
     const { token, user } = useSelector((state) => state.auth);
 
-    const handleLogout = () => {
-        dispatch(logout());
-    };
+    // const handleLogout = () => {
+    //     dispatch(logout());
+    // };
 
     return (
         <nav>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+//import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import HowItWorks from "./pages/HowItWorks";
 import Resources from "./pages/Resources";
@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "./redux/features/auth/authAction";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 

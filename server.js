@@ -21,8 +21,13 @@ app.use(morgan('dev'))
 
 // add routes
 // 1 test routes
-app.use("/api/v1/test", require('./routes/testRoutes'));
 app.use("/api/v1/auth", require('./routes/authRoutes'));
+
+//route for product
+app.use("/api/v1/products", require('./routes/productRoutes'));
+
+//route for place order and reject or approved the order by admin
+app.use("/api/v1/orders", require('./routes/orderRoutes'));
 
 // add port
 const PORT = process.env.PORT || 8080; //port number for the server to listen on.

@@ -7,24 +7,23 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoutes = ({ children }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const { token, user } = useSelector((state) => state.auth);
-
-  // Get current user
-  const getUser = async () => {
-    try {
-      const { data } = await API.get("auth/currentUser");
-      if (data?.success) {
-        dispatch(getCurrentUser(data));
-      }
-    } catch (error) {
-      localStorage.clear();
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        const { data } = await API.get("auth/currentUser");
+        if (data?.success) {
+          dispatch(getCurrentUser(data));
+        }
+      } catch (error) {
+        localStorage.clear();
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (token) {
       getUser();
     } else {
