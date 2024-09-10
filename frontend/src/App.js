@@ -24,6 +24,8 @@ import User from "./pages/User";
 import API from "./services/API";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "./redux/features/auth/authAction";
+import Article from './pages/Article';
+import Faq from './pages/Faq';
 
 function App() {
   const [cart] = useState([]);
@@ -58,7 +60,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-
+        <Route path="/article" element={<Article />} />
+        <Route path="/faq" element={<Faq />} />
+        
         {/* Cart is accessible without login */}
         <Route path="/cart" element={<Cart cart={cart} />} />
 

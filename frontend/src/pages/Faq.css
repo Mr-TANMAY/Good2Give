@@ -1,0 +1,96 @@
+/* FAQ Page Styles */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff; /* White background for readability */
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.faq-container h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50; /* Darker text for the header */
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f9f9f9; /* Light grey background for each FAQ item */
+    border-left: 5px solid #28a745; /* Green accent line for each FAQ item */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    cursor: pointer;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2c3e50; /* Darker text for the questions */
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.toggle-icon {
+    font-size: 24px;
+    color: #28a745; /* Green color for toggle icon */
+}
+
+.faq-answer {
+    margin-top: 10px;
+}
+
+.faq-answer p {
+    font-size: 16px;
+    color: #555; /* Slightly darker grey for answers */
+    line-height: 1.6;
+}
+
+.contact-link {
+    display: block;
+    margin-top: 20px;
+    color: #28a745; /* Green color for link */
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .faq-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .faq-item {
+    background: #2c2c2c;
+    border-left: 5px solid #28a745; /* Accent line for dark mode */
+}
+
+body.dark-mode .faq-question h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .faq-answer p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .contact-link {
+    color: #28a745;
+}
+body.dark-mode .faq-container h1 {
+    color: #28a745;
+}

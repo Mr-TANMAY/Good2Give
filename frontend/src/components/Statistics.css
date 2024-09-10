@@ -1,21 +1,53 @@
+/* Base Styles */
 .statistics {
     display: flex;
     justify-content: space-around;
-    padding: 50px 0;
-    
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for readability */
+    color: #101010;
 }
 
 .stat {
+    background: #fff; /* White background for statistic cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
     text-align: center;
-    width: 30%;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.stat:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
 }
 
 .stat h3 {
+    font-size: 22px; /* Slightly larger font size */
     margin-bottom: 10px;
-    font-size: 24px;
 }
 
 .stat p {
-    font-size: 18px;
-    
+    font-size: 18px; /* Slightly larger font size */
+    color: #312f2f;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .statistics {
+    background-color: #121212; /* Dark background for dark mode */
+    color: #e0e0e0; /* Light text color for readability */
+}
+
+body.dark-mode .stat {
+    background: #1e1e1e; /* Darker background for statistic cards */
+    color: #e0e0e0; /* Light text color */
+}
+
+body.dark-mode .stat h3 {
+    color: #e0e0e0; /* Light color for headings */
+}
+
+body.dark-mode .stat p {
+    color: #b0b0b0; /* Slightly lighter color for text */
 }
