@@ -4,6 +4,7 @@ import axios from "axios";
 import { addProduct } from "../../../redux/features/product/productSlice";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import "./AddProductForm.css"; // Import CSS
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,8 @@ const AddProductForm = () => {
     quantity: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false); // Prevent double submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForm, setShowForm] = useState(false); // Toggle form visibility
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -24,7 +26,7 @@ const AddProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent multiple submissions
+    if (isSubmitting) return;
     setIsSubmitting(true);
 
     const token = localStorage.getItem("token");
@@ -35,15 +37,15 @@ const AddProductForm = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Use backticks to handle string interpolation
+            Authorization: `Bearer ${token}`,
           },
         }
       )
       .then((response) => {
         toast.success(response.data.message);
-        console.log("Product added successfully:", response.data);
-        dispatch(addProduct(response.data)); // Add product to Redux store
+        dispatch(addProduct(response.data)); 
         setIsSubmitting(false);
+        setShowForm(false); // Hide form after submission
       })
       .catch((error) => {
         console.error("Error adding product:", error.response?.data);
@@ -52,53 +54,66 @@ const AddProductForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="productName"
-        placeholder="Enter Product Name..."
-        value={formData.productName}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="Enter Product Description..."
-        value={formData.description}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="price"
-        placeholder="Enter Product MRP..."
-        value={formData.price}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="discountedPrice"
-        placeholder="Enter Product discounted Price..."
-        value={formData.discountedPrice}
-        onChange={handleChange}
-      />
-      <input
-        type="date"
-        name="expiryDate"
-        placeholder="Enter Product expiry date..."
-        value={formData.expiryDate}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="quantity"
-        placeholder="Enter Product Quantity..."
-        value={formData.quantity}
-        onChange={handleChange}
-      />
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : "Add Product"}
+    <div className="add-product-container">
+      <button className="sell-btn" onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Cancel" : "Sell a Product"}
       </button>
-    </form>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} className="add-product-form">
+          <input
+            type="text"
+            name="productName"
+            placeholder="Enter Product Name..."
+            value={formData.productName}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Enter Product Description..."
+            value={formData.description}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Enter Product MRP..."
+            value={formData.price}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <input
+            type="number"
+            name="discountedPrice"
+            placeholder="Enter Discounted Price..."
+            value={formData.discountedPrice}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <input
+            type="date"
+            name="expiryDate"
+            value={formData.expiryDate}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Enter Quantity..."
+            value={formData.quantity}
+            onChange={handleChange}
+            className="form-input"
+          />
+          <button type="submit" disabled={isSubmitting} className="submit-btn">
+            {isSubmitting ? "Submitting..." : "Add Product"}
+          </button>
+        </form>
+      )}
+    </div>
   );
 };
 

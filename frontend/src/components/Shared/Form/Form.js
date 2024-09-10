@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLogin, userRegister } from "../../../redux/features/auth/authAction";
 
 export const Form = ({ formType, submitBtn, fromTitle }) => {
@@ -17,17 +17,13 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user} = useSelector((state) => state.auth);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formType === "Login") {
       await dispatch(userLogin({ email, password, role }));
-      if (user?.role === "admin") navigate('/admin');
-      else if (user?.role === "store") navigate('/store');
-      else if (user?.role === "organisation") navigate('/organisation');
-      else if (user?.role === "hotel") navigate('/hotels');
-      else navigate('/user');
+      
     } else if (formType === "Register") {
       await dispatch(userRegister({
         role,

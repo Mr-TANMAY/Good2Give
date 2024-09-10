@@ -31,7 +31,7 @@ export const fetchProducts = createAsyncThunk(
           },
         }
       );
-      console.log('APi response:',response.data);
+      console.log('APi response:',response);
       
       return response.data.products;
     } catch (error) {
