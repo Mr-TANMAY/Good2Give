@@ -18,6 +18,7 @@ const addProductController = async (req, res) => {
       description: req.body.description,
       price: req.body.price,
       discountedPrice: req.body.discountedPrice,
+      expiryDate: req.body.expiryDate,
       quantity: req.body.quantity,
       listedBy: req.user.userId,
     });

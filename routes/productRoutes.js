@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/add',authMiddleware,roleMiddleware(['hotel', 'stores']), addProductController)
 
 
-//Get available products (accessible to all users)
+//Get available products (accessible to user and organisation)
 router.get('/list', authMiddleware, roleMiddleware(['user', 'organisation']),getProductsController)
 module.exports = router;
 
