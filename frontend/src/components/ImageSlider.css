@@ -1,6 +1,6 @@
 .image-slider {
     width: 100%;
-    height: 437px; /* Adjusted height */
+    height: 392px; /* Adjusted height */
     position: relative;
     overflow: hidden; /* Hide overflow to prevent scrollbars */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow for depth */

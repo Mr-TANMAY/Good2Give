@@ -12,14 +12,6 @@ const productList = [
     { id: 6, name: 'Product 6', image: 'path/to/image6.jpg', mrp: 350, discountedPrice: 300 },
     { id: 7, name: 'Product 7', image: 'path/to/image7.jpg', mrp: 400, discountedPrice: 350 },
     { id: 8, name: 'Product 8', image: 'path/to/image8.jpg', mrp: 450, discountedPrice: 400 },
-    { id: 9, name: 'Product 9', image: 'path/to/image9.jpg', mrp: 500, discountedPrice: 450 },
-    { id: 10, name: 'Product 10', image: 'path/to/image10.jpg', mrp: 550, discountedPrice: 500 },
-    { id: 11, name: 'Product 11', image: 'path/to/image11.jpg', mrp: 600, discountedPrice: 550 },
-    { id: 12, name: 'Product 12', image: 'path/to/image12.jpg', mrp: 650, discountedPrice: 600 },
-    { id: 13, name: 'Product 13', image: 'path/to/image13.jpg', mrp: 700, discountedPrice: 650 },
-    { id: 14, name: 'Product 14', image: 'path/to/image14.jpg', mrp: 750, discountedPrice: 700 },
-    { id: 15, name: 'Product 15', image: 'path/to/image15.jpg', mrp: 800, discountedPrice: 750 },
-    { id: 16, name: 'Product 16', image: 'path/to/image16.jpg', mrp: 850, discountedPrice: 800 },
 ];
 
 function Products() {
