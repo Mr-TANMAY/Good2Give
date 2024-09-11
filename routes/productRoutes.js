@@ -1,5 +1,5 @@
 const express = require('express');
-const {addProductController, getProductsController, getUserProductsController} = require ('../controllers/productController');
+const {addProductController, getProductsController, getUserProductsController, deleteProductController} = require ('../controllers/productController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware')
 const router = express.Router();
@@ -14,6 +14,8 @@ router.get('/list', authMiddleware, roleMiddleware(['user', 'organisation']),get
 
 // Get products added by the current user
 router.get('/user-products/:userId', authMiddleware, getUserProductsController);
+
+router.delete('/delete/:id', authMiddleware, deleteProductController);
 
 module.exports = router;
 

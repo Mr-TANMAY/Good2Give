@@ -79,11 +79,43 @@ const getUserProductsController = async (req, res) => {
     });
   }
 };
+const deleteProductController = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const userId = req.user.userId;
+
+    // Find the product by ID
+    const product = await Product.findById(productId);
+
+    // Ensure the product exists and the current user listed it
+    if (!product || product.listedBy.toString() !== userId) {
+      return res.status(403).send({
+        success: false,
+        message: "You can only delete your own products.",
+      });
+    }
+
+    // Delete the product
+    await Product.findByIdAndDelete(productId);
+    res.status(200).send({
+      success: true,
+      message: "Product deleted successfully.",
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error deleting product.",
+      error,
+    });
+  }
+};
 
 module.exports = { 
   addProductController, 
   getProductsController, 
-  getUserProductsController 
+  getUserProductsController, 
+  deleteProductController // Added delete controller export
 };
+
 
 

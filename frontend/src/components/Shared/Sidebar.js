@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProducts } from '../../redux/features/product/productSlice';
 import './Sidebar.css'; // Add styles for the sidebar
+import { toast } from "react-toastify";
+import axios from "axios";
+
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -19,11 +22,30 @@ const Sidebar = () => {
     setShowHistory(!showHistory);
   };
 
-  if (status === 'loading') {
+  const handleDeleteProduct = async (productId) => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(
+        `http://localhost:8080/api/v1/products/delete/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Product deleted successfully.");
+      dispatch(fetchUserProducts(userId)); // Refetch products after deletion
+    } catch (error) {
+      toast.error("Error deleting product.");
+      console.log(error);
+    }
+  };
+
+  if (status === "loading") {
     return <div>Loading...</div>;
   }
 
-  if (status === 'failed') {
+  if (status === "failed") {
     return <div>Error: {error}</div>;
   }
 
@@ -41,6 +63,12 @@ const Sidebar = () => {
             userProducts.map((product) => (
               <li key={product._id} className="product-item">
                 <strong>{product.productName}</strong> - {product.status === 'sold' ? 'Sold' : 'Available'}
+                <button 
+                  className="delete-button" 
+                  onClick={() => handleDeleteProduct(product._id)}
+                >
+                  Delete
+                </button>
               </li>
             ))
           )}
