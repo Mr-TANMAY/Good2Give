@@ -1,20 +1,67 @@
+/* Base Styles */
 .goals {
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for readability */
+    color: #333;
     text-align: center;
-    padding: 50px 0;
 }
 
 .goals h2 {
     font-size: 28px;
     margin-bottom: 20px;
+    color: #28a745; /* Green color for headings */
 }
 
-.goals .images {
+.goal-content {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.goals .images img {
-    width: 30%;
+.goal-item {
+    background: #fff; /* White background for goal cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    width: 300px; /* Fixed width for goal items */
+    text-align: center;
+}
+
+.goal-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.goal-item img {
+    width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 8px;
+}
+
+.goal-item h3 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #28a745; /* Green color for headings */
+}
+
+.goal-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .goals {
+    background-color: #121212; /* Dark background for dark mode */
+    color: #e0e0e0; /* Light text color for readability */
+}
+
+body.dark-mode .goal-item {
+    background: #1e1e1e; /* Darker background for goal cards */
+    color: #e0e0e0; /* Light text color */
+}
+
+body.dark-mode .goal-item h3 {
+    color: #28a745; /* Bright color for headings in dark mode */
 }

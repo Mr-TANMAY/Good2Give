@@ -4,7 +4,7 @@ import './Header.css';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../redux/features/auth/authAction';  // Correct import for logout action
+import { logout } from '../redux/features/auth/authAction'; // Correct import for logout action
 import { BiUserCircle } from 'react-icons/bi';
 
 function Header() {

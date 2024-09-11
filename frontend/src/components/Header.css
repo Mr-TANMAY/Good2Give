@@ -42,12 +42,13 @@ nav ul li {
 nav ul li a {
     color: rgba(255, 255, 255, 0.8); /* Transparent color for softer look */
     text-decoration: none;
-    font-size: 16px; /* Font size for menu items */
+    font-size: 18px; /* Font size for menu items */
     transition: color 0.3s ease; /* Smooth color transition */
     max-width: 150px; /* Max width for wrapping */
     display: inline-block;
     word-wrap: break-word; /* Wrap long words */
     white-space: normal; /* Allow text to wrap */
+    
 }
 
 nav ul li a.active {
@@ -142,12 +143,12 @@ nav ul li {
 .login-button:hover,
 .register-button:hover,
 .logout-button:hover {
-    background-color: #34495e; /* Darker background color on hover */
+    background-color: #121212; /* Darker background color on hover */
 }
 
 /* Dark mode styles */
 body.dark-mode header {
-    background-color: #2c3e50; /* Darker background for dark mode */
+    background-color: #1a1a1a; /* Darker background for dark mode */
 }
 
 body.dark-mode .dropdown-menu {

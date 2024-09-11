@@ -1,11 +1,169 @@
+/* Base Styles */
 .how-it-works {
-    padding: 20px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .how-it-works h2 {
-    font-size: 2em;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .how-it-works p {
-    font-size: 1.2em;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.section {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: #ffffff;
+}
+
+.section-header {
+    background-color: #27ae60; /* Green for User/NGO */
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    position: absolute;
+    top: -20px; /* Position header above the first step card */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px); /* Adjust width to match padding */
+    z-index: 1;
+}
+
+.buyer .section-header {
+    background-color: #3b9b1a; /* Green color for User/NGO */
+}
+
+.seller .section-header {
+    background-color: #145417; /* Dark green color for Hotels/Stores */
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px; /* Add space for section header overlap */
+}
+
+.step-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.step-card:hover {
+    background-color: #f1f8f6; /* Light green for hover */
+    transform: scale(1.02);
+}
+
+.step-icon {
+    color: #3b9b1a; /* Green color for User/NGO */
+    font-size: 2rem;
+}
+
+.seller .step-icon {
+    color: #145417; /* Dark green color for Hotels/Stores */
+}
+
+.step-card h4 {
+    font-size: 1.25rem;
+    color: #34495e;
+    margin-bottom: 8px;
+}
+
+.step-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .how-it-works {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .how-it-works h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .how-it-works p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .section {
+    background-color: #2e2e2e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .section-header {
+    background-color: #3b9b1a;/* Keep green for User/NGO */
+    color: #fff;
+}
+
+body.dark-mode .buyer .section-header {
+    background-color: #3b9b1a;/* Slightly different green for User/NGO */
+}
+
+body.dark-mode .seller .section-header {
+    background-color: #145417;  /* Different green for Hotels/Stores */
+}
+
+body.dark-mode .step-card {
+    background-color: #2e2e2e;
+    border: 1px solid #444;
+}
+
+body.dark-mode .step-card:hover {
+    background-color: #333;
+    transform: scale(1.02);
+}
+
+body.dark-mode .step-icon {
+    color: #3b9b1a; /* Lighter green for User/NGO in dark mode */
+}
+
+body.dark-mode .seller .step-icon {
+    color: #145417;  /* Lighter green for Hotels/Stores in dark mode */
+}
+
+body.dark-mode .step-card h4 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .step-card p {
+    color: #b0b0b0;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
 }
