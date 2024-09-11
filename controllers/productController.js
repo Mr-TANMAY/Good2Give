@@ -60,4 +60,30 @@ const getProductsController = async (req, res) => {
   }
 };
 
-module.exports = { addProductController, getProductsController };
+// Fetch products added by the current user
+const getUserProductsController = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const userProducts = await Product.find({ listedBy: userId });
+
+    res.status(200).send({
+      success: true,
+      message: "User products retrieved successfully.",
+      products: userProducts,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error while fetching user products",
+      error,
+    });
+  }
+};
+
+module.exports = { 
+  addProductController, 
+  getProductsController, 
+  getUserProductsController 
+};
+
+
