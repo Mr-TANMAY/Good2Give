@@ -5,7 +5,6 @@ import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/features/auth/authAction';  // Correct import for logout action
-
 import { BiUserCircle } from 'react-icons/bi';
 
 function Header() {
@@ -15,19 +14,34 @@ function Header() {
     const location = useLocation();
     const currentPath = location.pathname;
 
-    // State to manage the dropdown visibility
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    // State to manage the user dropdown visibility
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
-    // Function to show the dropdown
-    const showDropdown = () => {
-        setIsDropdownOpen(true);
+    // State to manage the resources dropdown visibility
+    const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
+
+    // Function to show the user dropdown
+    const showUserDropdown = () => {
+        setIsUserDropdownOpen(true);
     };
 
-    // Function to hide the dropdown with a delay
-    const hideDropdown = () => {
+    // Function to hide the user dropdown
+    const hideUserDropdown = () => {
         setTimeout(() => {
-            setIsDropdownOpen(false);
-        }, 1000); // Short delay to allow moving the mouse to the dropdown
+            setIsUserDropdownOpen(false);
+        }, 200); // Delay for better UX
+    };
+
+    // Function to show the resources dropdown
+    const showResourcesDropdown = () => {
+        setIsResourcesDropdownOpen(true);
+    };
+
+    // Function to hide the resources dropdown
+    const hideResourcesDropdown = () => {
+        setTimeout(() => {
+            setIsResourcesDropdownOpen(false);
+        }, 200); // Delay for better UX
     };
 
     const handleLogout = () => {
@@ -36,15 +50,15 @@ function Header() {
         toast("Logout successfully");
         navigate('/'); // Redirect to home after logout
     };
-    
-    // Handlers for Login and Register buttons
+
     const handleLogin = () => {
         navigate('/login');
     };
-    
+
     const handleRegister = () => {
         navigate('/register');
     };
+
     return (
         <header>
             <div className="logo">
@@ -60,8 +74,16 @@ function Header() {
                     <li>
                         <Link to="/how-it-works" className={currentPath === "/how-it-works" ? "active" : ""}>How it Works</Link>
                     </li>
-                    <li>
-                        <Link to="/resources" className={currentPath === "/resources" ? "active" : ""}>Resources</Link>
+                    <li
+                        className="resources-menu"
+                        onMouseEnter={showResourcesDropdown}
+                        onMouseLeave={hideResourcesDropdown}
+                    >
+                        <Link to="#" className={currentPath === "/resources" ? "active" : ""}>Resources</Link>
+                        <div className={`dropdown-menu resources-dropdown ${isResourcesDropdownOpen ? 'show' : ''}`}>
+                            <Link to="/article" className="dropdown-item">Articles</Link>
+                            <Link to="/faq" className="dropdown-item">FAQ</Link>
+                        </div>
                     </li>
                     <li>
                         <Link to="/about" className={currentPath === "/about" ? "active" : ""}>About</Link>
@@ -71,7 +93,8 @@ function Header() {
                     </li>
                     {user && (
                         <li>
-                            <BiUserCircle /> Welcome, {user?.role} &nbsp; <span class="badge text-bg-secondary">{user?.role}</span> {/* Show user role when logged in */}
+                            <BiUserCircle /> Welcome, {user?.role} &nbsp;
+                            <span className="badge text-bg-secondary">{user?.role}</span> {/* Show user role when logged in */}
                         </li>
                     )}
                 </ul>
@@ -82,38 +105,27 @@ function Header() {
                 </Link>
                 <div
                     className="user-icon"
-                    onMouseEnter={showDropdown}
-                    onMouseLeave={hideDropdown}
+                    onMouseEnter={showUserDropdown}
+                    onMouseLeave={hideUserDropdown}
                 >
                     <div className="user-icon-wrapper">
                         <FaUser size={30} /> {/* User icon */}
                     </div>
                     <div
-                        className={`dropdown-menu ${isDropdownOpen ? 'show' : ''}`}
-                        onMouseEnter={showDropdown}
-                        onMouseLeave={hideDropdown}
+                        className={`dropdown-menu ${isUserDropdownOpen ? 'show' : ''}`}
+                        onMouseEnter={showUserDropdown}
+                        onMouseLeave={hideUserDropdown}
                     >
                         {user ? (
-                            // Show Logout option if user is logged in
-                            <button 
-                                className="dropdown-item logout-button" 
-                                onClick={handleLogout}
-                            >
+                            <button className="dropdown-item logout-button" onClick={handleLogout}>
                                 Logout
                             </button>
                         ) : (
                             <>
-                                {/* Show Login and Register options if user is not logged in */}
-                                <button 
-                                    className="dropdown-item login-button" 
-                                    onClick={handleLogin}
-                                >
+                                <button className="dropdown-item login-button" onClick={handleLogin}>
                                     Login
                                 </button>
-                                <button 
-                                    className="dropdown-item register-button" 
-                                    onClick={handleRegister}
-                                >
+                                <button className="dropdown-item register-button" onClick={handleRegister}>
                                     Register
                                 </button>
                             </>

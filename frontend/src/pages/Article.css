@@ -1,0 +1,76 @@
+/* Base Styles */
+.article-container {
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for readability */
+    color: #333;
+}
+
+.article-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: 20px;
+    justify-content: center; /* Center the grid items */
+}
+
+.article-item {
+    background: #fff; /* White background for article cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.article-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.article-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.article-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+.read-more {
+    display: block;
+    margin-top: 10px;
+    color: #28a745; /* Green color for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .article-container {
+    background-color: #121212; /* Dark background for dark mode */
+    color: #e0e0e0; /* Light text color for readability */
+}
+
+body.dark-mode .article-item {
+    background: #1e1e1e; /* Darker background for article cards */
+    color: #e0e0e0; /* Light text color */
+}
+
+body.dark-mode .article-item h2 {
+    color: #e0e0e0; /* Light color for headings */
+}
+
+body.dark-mode .article-item p {
+    color: #b0b0b0; /* Slightly lighter color for text */
+}
+
+body.dark-mode .read-more {
+    color: #28a745; /* Green color for links in dark mode */
+}
