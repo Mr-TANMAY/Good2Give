@@ -1,5 +1,5 @@
 const express = require('express');
-const { placeOrderController, approveRejectOrderController } = require('../controllers/orderController')
+const { placeOrderController, approveRejectOrderController, getUserPurchasesController } = require('../controllers/orderController')
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
 const router = express.Router();
@@ -10,6 +10,9 @@ router.post('/place',authMiddleware,roleMiddleware(['user', 'organisation']),pla
 
 // Approve or Reject an order (accessible to admins)
 router.post('/update-status', authMiddleware, roleMiddleware(['admin']),approveRejectOrderController);
+
+// Fetch user/organization purchases
+router.get('/user-purchases', authMiddleware, getUserPurchasesController);
 
 // Fetch all orders (for admin)
 router.get('/', authMiddleware, roleMiddleware(['admin']), async (req, res) => {

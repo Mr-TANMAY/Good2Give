@@ -56,11 +56,33 @@ export const fetchUserProducts = createAsyncThunk(
   }
 );
 
+// Fetch purchased products
+export const fetchPurchasedProducts = createAsyncThunk(
+  'products/fetchPurchasedProducts',
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        "http://localhost:8080/api/v1/orders/user-purchases",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data.orders; // Assuming response contains orders related to the user.
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [], // Initialize products as an empty array
     userProducts: [], // Initialize user-specific products
+    purchasedProducts: [], // New state for purchased products
     loading: false, // Initialize loading as false
     error: null, // Initialize error as null to handle errors
     status: "idle", // Status for tracking fetchUserProducts state
@@ -95,6 +117,18 @@ const productsSlice = createSlice({
         state.userProducts = action.payload;
       })
       .addCase(fetchUserProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchPurchasedProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPurchasedProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.purchasedProducts = action.payload; // Set fetched purchased products
+      })
+      .addCase(fetchPurchasedProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

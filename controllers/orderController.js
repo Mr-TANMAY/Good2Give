@@ -89,4 +89,24 @@ const approveRejectOrderController = async (req, res) => {
     }
 };
 
-module.exports = { placeOrderController, approveRejectOrderController };
+const getUserPurchasesController = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const orders = await Order.find({ buyer: userId }).populate('product');
+        
+        return res.status(200).send({
+            success: true,
+            orders,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error fetching purchases',
+            error,
+        });
+    }
+};
+
+
+module.exports = { placeOrderController, approveRejectOrderController, getUserPurchasesController };

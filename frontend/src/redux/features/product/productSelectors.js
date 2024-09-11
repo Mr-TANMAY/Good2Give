@@ -26,3 +26,8 @@ export const selectProductsError = createSelector(
   [selectProductsState],
   (productsState) => productsState.error
 );
+
+export const selectPurchasedProducts = createSelector(
+  [selectProductsState],
+  (productsState) => productsState.purchasedProducts || []
+);
