@@ -3,12 +3,14 @@ import { useSelector } from "react-redux";
 import ImageSlider from "../components/ImageSlider";
 import Statistics from "../components/Statistics";
 import Goals from "../components/Goals";
-import Products from "../components/Products";
 import AdminHome from "../components/AdminHome";
 import StoreHome from "../components/StoreHome";
 import OrganisationHome from "../components/OrganisationHome";
 import HotelHome from "../components/HotelHome";
 import UserHome from "../components/UserHome";
+import Testimonials from "../components/Testimonials"; 
+import ImpactMetrics from "../components/ImpactMetrics"; 
+import FoodWasteQuiz from "../components/FoodWasteQuiz";
 
 function Home() {
   const { user } = useSelector((state) => state.auth);
@@ -20,8 +22,10 @@ function Home() {
         <>
           <ImageSlider />
           <Statistics />
-          <Products />
           <Goals />
+          <FoodWasteQuiz />
+          <ImpactMetrics />
+          <Testimonials /> {/* Add Testimonials below Statistics */}
         </>
       );
     }

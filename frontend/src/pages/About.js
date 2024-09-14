@@ -4,7 +4,7 @@ import './About.css';
 // Import images if located in the src folder
 import missionImage from '../assets/images/a1.jpg';
 import visionImage from '../assets/images/a2.jpg';
-import logoImage from '../assets/images/logo.png';
+import logoImage from '../assets/images/logo1.png';
 import teamImage from '../assets/images/a4.jpg';
 import impactImage from '../assets/images/a3.jpg';
 

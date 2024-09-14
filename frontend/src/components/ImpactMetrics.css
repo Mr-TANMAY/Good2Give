@@ -1,0 +1,129 @@
+/* Main section styling */
+.impact-metrics-section {
+    padding: 4rem 2rem;
+    background-color: #f0f4f7;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .impact-metrics-section h2 {
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Grid layout for the metrics */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  /* Metric cards styling */
+  .metric-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+  }
+  
+  .metric-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Metric numbers styling */
+  .metric-card h3 {
+    font-size: 3rem;
+    color: #28a745;/* Green color for the numbers */
+    margin-bottom: 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .metric-card:hover h3 {
+    color: #218c54; /* Darker shade on hover */
+  }
+  
+  /* Description styling */
+  .metric-card p {
+    font-size: 1.2rem;
+    color: #555;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  
+  /* Animation for number counting */
+  .metric-card h3 {
+    font-variant-numeric: tabular-nums;
+    animation: pulse 1s infinite;
+  }
+  
+  /* Pulse animation */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Dark Mode Styling */
+  .dark-mode .impact-metrics-section {
+    background-color: #1e1e1e;
+  }
+  
+  .dark-mode .impact-metrics-section h2 {
+    color: #f0f4f7;
+  }
+  
+  .dark-mode .metric-card {
+    background-color: #2b2b2b;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Adjusted shadow for clarity */
+  }
+  
+  .dark-mode .metric-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); /* Darker shadow on hover */
+  }
+  
+  .dark-mode .metric-card h3 {
+    color: #28a745; /* Brighter green for dark mode */
+  }
+  
+  .dark-mode .metric-card p {
+    color: #cccccc;
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .metric-card {
+      padding: 1.5rem;
+    }
+  
+    .metric-card h3 {
+      font-size: 2.5rem;
+    }
+  }
+  
