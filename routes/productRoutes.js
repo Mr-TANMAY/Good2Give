@@ -1,11 +1,11 @@
 const express = require('express');
-const {addProductController, getProductsController, getUserProductsController, deleteProductController} = require ('../controllers/productController');
+const {addProductController, getProductsController, getUserProductsController, deleteProductController , upload} = require ('../controllers/productController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware')
 const router = express.Router();
 
 //Add product (only for hotels and stores)
-router.post('/add',authMiddleware,roleMiddleware(['hotel', 'stores']), addProductController)
+router.post('/add',authMiddleware,roleMiddleware(['hotel', 'stores']), upload.single('image'), addProductController)
 
 
 //Get available products (accessible to user and organisation)

@@ -5,7 +5,6 @@ import './Sidebar.css'; // Add styles for the sidebar
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
 const Sidebar = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user._id);
@@ -62,10 +61,15 @@ const Sidebar = () => {
           ) : (
             userProducts.map((product) => (
               <li key={product._id} className="product-item">
-                <strong>{product.productName}</strong> - {product.status === 'sold' ? 'Sold' : 'Available'}
+                <strong>{product.productName}</strong> - 
+                {product.status === 'sold' && <span>Sold</span>}
+                {product.status === 'available' && <span>Available</span>}
+                {product.status === 'pending' && <span>Pending</span>}
+                {product.status === 'expired' && <span style={{ color: 'red' }}>Expired</span>}
                 <button 
                   className="delete-button" 
                   onClick={() => handleDeleteProduct(product._id)}
+                  disabled={product.status === 'sold'}
                 >
                   Delete
                 </button>

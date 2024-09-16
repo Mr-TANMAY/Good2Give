@@ -4,6 +4,7 @@ const color = require('colors'); //for adding color to text in terminal window.
 const morgan = require('morgan'); //for logging requests made by clients accessing your API endpoints.
 const cors = require('cors'); //for enabling CORS (Cross-Origin Resource Sharing) requests made by clients accessing your API endpoints.
 const connectDB = require('./config/db');
+const path = require("path");
 //configure dotenv module to load environment variables from a .env file in the root directory of your project.
 dotenv.config({path:'.env'})
 
@@ -17,6 +18,9 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 app.use(morgan('dev'))
+
+// Serve static files from the "uploads" folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 // add routes

@@ -1,5 +1,28 @@
 const Product = require("../models/productModel");
 const userModel = require("../models/userModel");
+const multer = require("multer");
+const path = require("path");
+
+// Configure multer for image storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads"); // Ensure this folder exists or create it
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Name the file with the current timestamp
+  },
+});
+
+const upload = multer({ storage });
+
+// Check and update product status to 'expired' if past expiry date
+const checkAndMarkExpiredProducts = async () => {
+  const now = new Date();
+  await Product.updateMany(
+    { expiryDate: { $lt: now.toISOString() }, status: 'available' },
+    { $set: { status: 'expired' } }
+  );
+};
 
 const addProductController = async (req, res) => {
   try {
@@ -14,6 +37,7 @@ const addProductController = async (req, res) => {
     }
 
     const product = new Product({
+      image: req.file ? `/uploads/${req.file.filename}` : null, // Store image path if uploaded
       productName: req.body.productName,
       description: req.body.description,
       price: req.body.price,
@@ -40,9 +64,12 @@ const addProductController = async (req, res) => {
 };
 
 //Get products (visible to user and organization)
+// Get Available Products (filter expired)
 const getProductsController = async (req, res) => {
   try {
-    // Fetch products where status is 'available'
+    // Ensure expired products are marked
+    await checkAndMarkExpiredProducts();
+
     const products = await Product.find({ status: "available" });
 
     return res.status(200).send({
@@ -112,6 +139,7 @@ const deleteProductController = async (req, res) => {
 
 module.exports = { 
   addProductController, 
+  upload,
   getProductsController, 
   getUserProductsController, 
   deleteProductController // Added delete controller export

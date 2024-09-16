@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
+    image: {
+        type: String,
+        required: false,
+      },
     productName: {
         type: String,
         required: true
     },
-
     description: {
         type: String,
         required: true,
@@ -19,7 +22,7 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     expiryDate:{
-        type:  String,
+        type:  Date,
         required: true,
     },
     quantity: {

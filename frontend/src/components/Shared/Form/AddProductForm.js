@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { addProduct } from "../../../redux/features/product/productSlice";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import Webcam from "react-webcam";
+import "react-toastify/dist/ReactToastify.css";
 import "./AddProductForm.css"; // Import CSS
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
+    image: "",
     productName: "",
     description: "",
     price: "",
@@ -16,12 +18,33 @@ const AddProductForm = () => {
     quantity: "",
   });
 
+  const [imageFile, setImageFile] = useState(null); // For image upload
+  const [cameraImage, setCameraImage] = useState(null); // For image captured from camera
+  const [useCamera, setUseCamera] = useState(false); // Toggle between camera and file input
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false); // Toggle form visibility
   const dispatch = useDispatch();
 
+  const webcamRef = useRef(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle image input change
+  const handleImageChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
+  // Capture the image from the webcam
+  const captureImage = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    console.log("Captured Image Source:", imageSrc); // Log the image source
+    if (!imageSrc) {
+      console.error("Failed to capture image.");
+    } else {
+      setCameraImage(imageSrc); // Set the captured image if successful
+    }
   };
 
   const handleSubmit = (e) => {
@@ -31,19 +54,39 @@ const AddProductForm = () => {
 
     const token = localStorage.getItem("token");
 
+    // Create a FormData object to send the image and other fields
+    const productData = new FormData();
+    Object.keys(formData).forEach((key) => {
+      productData.append(key, formData[key]);
+    });
+    if (imageFile) {
+      productData.append("image", imageFile); // Add image to the form data
+    }
+
+    if (cameraImage) {
+      // Convert the camera image (base64) to a Blob and append it to the FormData
+      fetch(cameraImage)
+        .then((res) => res.blob())
+        .then((blob) => {
+          productData.append("image", blob, "cameraImage.jpg");
+          submitProductData(productData, token);
+        });
+    } else {
+      submitProductData(productData, token); // Submit if only file upload
+    }
+  };
+
+  const submitProductData = (productData, token) => {
     axios
-      .post(
-        "http://localhost:8080/api/v1/products/add",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("http://localhost:8080/api/v1/products/add", productData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         toast.success(response.data.message);
-        dispatch(addProduct(response.data)); 
+        dispatch(addProduct(response.data));
         setIsSubmitting(false);
         setShowForm(false); // Hide form after submission
       })
@@ -61,6 +104,58 @@ const AddProductForm = () => {
 
       {showForm && (
         <form onSubmit={handleSubmit} className="add-product-form">
+          <div className="image-section">
+            <p>Upload Product Image</p>
+
+            {/* Toggle between file upload and camera capture */}
+            <div className="image-options">
+              <button
+                type="button"
+                onClick={() => setUseCamera(!useCamera)}
+                className="toggle-btn"
+              >
+                {useCamera ? "Use File Upload" : "Use Camera"}
+              </button>
+            </div>
+
+            {useCamera ? (
+              <div className="camera-section">
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  className="webcam-view"
+                  videoConstraints={{
+                    width: 1280,
+                    height: 720,
+                    facingMode: "user", // for front camera
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={captureImage}
+                  className="capture-btn"
+                >
+                  Capture Image
+                </button>
+                {cameraImage && (
+                  <img
+                    src={cameraImage}
+                    alt="Captured"
+                    className="preview-image"
+                  />
+                )}
+              </div>
+            ) : (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="form-input"
+              />
+            )}
+          </div>
+          <p>Enter Product Name</p>
           <input
             type="text"
             name="productName"
@@ -69,6 +164,7 @@ const AddProductForm = () => {
             onChange={handleChange}
             className="form-input"
           />
+          <p>Enter Product Description</p>
           <input
             type="text"
             name="description"
@@ -77,6 +173,7 @@ const AddProductForm = () => {
             onChange={handleChange}
             className="form-input"
           />
+          <p>Enter Product MRP</p>
           <input
             type="number"
             name="price"
@@ -85,6 +182,7 @@ const AddProductForm = () => {
             onChange={handleChange}
             className="form-input"
           />
+          <p>Enter Product Discounted Price</p>
           <input
             type="number"
             name="discountedPrice"
@@ -93,6 +191,7 @@ const AddProductForm = () => {
             onChange={handleChange}
             className="form-input"
           />
+          <p>Enter Product Expiry Date</p>
           <input
             type="date"
             name="expiryDate"
@@ -100,8 +199,9 @@ const AddProductForm = () => {
             onChange={handleChange}
             className="form-input"
           />
+          <p>Enter Product Quantity</p>
           <input
-            type="number"
+            type="S"
             name="quantity"
             placeholder="Enter Quantity..."
             value={formData.quantity}

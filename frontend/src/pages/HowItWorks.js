@@ -1,6 +1,6 @@
 import React from 'react';
 import './HowItWorks.css';
-import { FaUser, FaStore, FaCartPlus, FaSignInAlt, FaBox, FaHistory } from 'react-icons/fa';
+import { FaStore, FaCartPlus, FaSignInAlt, FaBox, FaHistory } from 'react-icons/fa';
 import { IoMdContact } from 'react-icons/io';
 
 function HowItWorks() {

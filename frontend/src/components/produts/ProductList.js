@@ -50,10 +50,13 @@ const ProductList = () => {
       <div className="product-cards">
         {products.map((product) => (
           <div key={product._id} className="product-card">
+            {product.image && (
+              <img src={`http://localhost:8080${product.image}`} alt={product.productName} className="product-image"/>
+            )}
             <h3>{product.productName}</h3>
             <p>Description: {product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>Discounted Price: ${product.discountedPrice}</p>
+            <p>Price: {product.price} ₹</p>
+            <p>Discounted Price: {product.discountedPrice}₹</p>
             <p>Quantity: {product.quantity}</p>
             <p>Expiry Date: {new Date(product.expiryDate).toDateString()}</p>
             <p>Status: {product.status}</p>
