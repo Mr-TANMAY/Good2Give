@@ -1,78 +1,120 @@
-/* Container styling for the sidebar */
-.sidebar-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .sidebar-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Title styling for the sidebar */
-  .sidebar-container h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: 600;
-    text-align: center;
-  }
-  
-  /* Button to toggle the visibility of the product list */
-  .toggle-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .toggle-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-  }
-  
-  /* Styling for the list of purchased products */
-  .purchased-products-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .purchased-product-card {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-  }
-  
-  .purchased-product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Product title in the card */
-  .purchased-product-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  /* Product details like status, price, etc. */
-  .purchased-product-card p {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
+.sidebar {
+  width: 100%;
+  max-width: 100%; /* Allow the sidebar to stretch horizontally */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping of elements */
+}
 
-  
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #333;
+}
+
+.toggle-button {
+  width: auto;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+/* Horizontal Product List Styles */
+.product-list {
+  list-style: none;
+  padding: 0;
+  display: flex; /* Display items in a row */
+  gap: 20px; /* Add space between product items */
+  white-space: nowrap; /* Prevent wrapping of items */
+}
+
+.product-item {
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  flex: 0 0 250px; /* Fixed width for each product card */
+  display: inline-block; /* Ensure it behaves as a block item within horizontal flow */
+  transition: box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-item h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-item p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.product-item .status,
+.product-item .price,
+.product-item .order-date {
+  display: block;
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.status {
+  color: #28a745;
+}
+
+.price {
+  color: #ff8c00;
+}
+
+.order-date {
+  color: #888;
+}
+
+/* Payment Button Styles */
+.payment-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.payment-button:disabled {
+  background-color: #d9534f;
+  cursor: not-allowed;
+}
+
+.payment-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  text-align: center;
+}
