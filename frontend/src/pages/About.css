@@ -1,3 +1,4 @@
+/* Base Styles */
 .about {
     padding: 40px 20px;
     max-width: 1200px;
@@ -32,13 +33,19 @@
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.section:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02); /* Slight zoom effect */
 }
 
 .section-left {
     flex: 1;
     padding: 20px;
     text-align: left;
-    margin-left: 0px;
+    margin-left: 0;
     margin-right: -100px;
 }
 
@@ -46,9 +53,9 @@
     flex: 1;
     padding: 20px;
     text-align: left;
-    margin: 0px;
+    margin: 0;
     margin-left: -100px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .section-title {
@@ -64,7 +71,6 @@ p {
     color: #555;
     line-height: 1.6;
     font-family: 'Open Sans', sans-serif;
-    
 }
 
 .impact-highlight {
@@ -80,6 +86,11 @@ p {
     height: 280px; /* Fixed height */
     object-fit: cover; /* Ensures image covers the box without distortion */
     border-radius: 10px;
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+.about-image:hover {
+    transform: scale(1.05); /* Zoom-in effect on hover */
 }
 
 .section-left .about-image {

@@ -5,17 +5,19 @@
     padding: 20px;
     background-color: #f4f4f4; /* Light background for readability */
     color: #101010;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .stat {
     background: #fff; /* White background for statistic cards */
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    padding: 20px;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     text-align: center;
-    flex: 1;
-    margin: 0 10px;
+    flex: 1 1 30%; /* Allow cards to grow and shrink, 3 cards per row */
+    margin: 10px;
+    position: relative;
 }
 
 .stat:hover {
@@ -23,14 +25,52 @@
     transform: translateY(-5px);
 }
 
-.stat h3 {
-    font-size: 22px; /* Slightly larger font size */
-    margin-bottom: 10px;
+.stat-icon {
+    margin-bottom: 15px;
+    color: #4caf50; /* Default color for icons */
 }
 
-.stat p {
-    font-size: 18px; /* Slightly larger font size */
-    color: #312f2f;
+.stat-icon svg {
+    vertical-align: middle;
+}
+
+/* Specific Icon Colors */
+.users-icon {
+    color: #2196f3; /* Blue for population */
+}
+
+.industry-icon {
+    color: #ff9800; /* Orange for food production */
+}
+
+.waste-icon {
+    color: #f44336; /* Red for waste */
+}
+
+.highlight {
+    font-size: 18px; /* Larger font size for highlighted text */
+    color: #333; /* Dark color for text */
+}
+
+.number {
+    font-size: 24px; /* Larger font size for numbers */
+    font-weight: bold;
+    color: #4caf50; /* Default highlight color for numbers */
+    transition: transform 0.3s ease; /* Smooth zoom-in effect */
+}
+
+.number.waste-number {
+    color: #f44336; /* Highlight number in red for waste */
+}
+
+.number:hover {
+    transform: scale(1.1); /* Zoom-in effect on hover */
+}
+
+.details {
+    font-size: 16px; /* Smaller font size for details */
+    color: #666; /* Light color for additional content */
+    margin-top: 10px;
 }
 
 /* Dark Mode Styles */
@@ -44,10 +84,47 @@ body.dark-mode .stat {
     color: #e0e0e0; /* Light text color */
 }
 
-body.dark-mode .stat h3 {
-    color: #e0e0e0; /* Light color for headings */
+body.dark-mode .stat-icon {
+    color: #4caf50; /* Green color for icons in dark mode */
 }
 
-body.dark-mode .stat p {
-    color: #b0b0b0; /* Slightly lighter color for text */
+body.dark-mode .users-icon {
+    color: #64b5f6; /* Light blue for users in dark mode */
+}
+
+body.dark-mode .industry-icon {
+    color: #ffb74d; /* Light orange for industry in dark mode */
+}
+
+body.dark-mode .waste-icon {
+    color: #ef5350; /* Light red for waste in dark mode */
+}
+
+body.dark-mode .highlight {
+    color: #e0e0e0; /* Light color for highlighted text */
+}
+
+body.dark-mode .number {
+    color: #4caf50; /* Highlight color for numbers in dark mode */
+}
+
+body.dark-mode .number.waste-number {
+    color: #ef5350; /* Dark mode red for waste number */
+}
+
+body.dark-mode .details {
+    color: #b0b0b0; /* Light color for additional content */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stat {
+        flex: 1 1 45%; /* Two cards per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .stat {
+        flex: 1 1 100%; /* One card per row */
+    }
 }
