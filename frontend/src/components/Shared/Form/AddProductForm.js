@@ -16,6 +16,8 @@ const AddProductForm = () => {
     discountedPrice: "",
     expiryDate: "",
     quantity: "",
+    pincode: "",   // New field for pincode
+    address: "",   // New field for address
   });
 
   const [imageFile, setImageFile] = useState(null); // For image upload
@@ -39,7 +41,6 @@ const AddProductForm = () => {
   // Capture the image from the webcam
   const captureImage = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    console.log("Captured Image Source:", imageSrc); // Log the image source
     if (!imageSrc) {
       console.error("Failed to capture image.");
     } else {
@@ -59,6 +60,7 @@ const AddProductForm = () => {
     Object.keys(formData).forEach((key) => {
       productData.append(key, formData[key]);
     });
+
     if (imageFile) {
       productData.append("image", imageFile); // Add image to the form data
     }
@@ -155,6 +157,7 @@ const AddProductForm = () => {
               />
             )}
           </div>
+
           <p>Enter Product Name</p>
           <input
             type="text"
@@ -201,13 +204,31 @@ const AddProductForm = () => {
           />
           <p>Enter Product Quantity</p>
           <input
-            type="S"
+            type="number"
             name="quantity"
             placeholder="Enter Quantity..."
             value={formData.quantity}
             onChange={handleChange}
             className="form-input"
+          />    
+          <p>Enter Address</p>
+          <textarea
+            name="address"
+            placeholder="Enter Address..."
+            value={formData.address}
+            onChange={handleChange}
+            className="form-input"
           />
+          <p>Enter Pincode</p>
+          <input
+            type="text"
+            name="pincode"
+            placeholder="Enter Pincode..."
+            value={formData.pincode}
+            onChange={handleChange}
+            className="form-input"
+          />
+
           <button type="submit" disabled={isSubmitting} className="submit-btn">
             {isSubmitting ? "Submitting..." : "Add Product"}
           </button>

@@ -43,6 +43,8 @@ const addProductController = async (req, res) => {
       price: req.body.price,
       discountedPrice: req.body.discountedPrice,
       expiryDate: req.body.expiryDate,
+      address: req.body.address, 
+      pincode: req.body.pincode,
       quantity: req.body.quantity,
       listedBy: req.user.userId,
     });

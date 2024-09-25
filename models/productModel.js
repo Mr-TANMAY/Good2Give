@@ -29,6 +29,14 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    address: {
+        type: String,
+        required: true 
+    },
+    pincode: {
+        type: String,
+        required: true 
+    },
     listedBy: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'User',
