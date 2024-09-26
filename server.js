@@ -33,6 +33,8 @@ app.use("/api/v1/products", require('./routes/productRoutes'));
 //route for place order and reject or approved the order by admin
 app.use("/api/v1/orders", require('./routes/orderRoutes'));
 
+app.use('/api/v1/orders', require('./routes/paymentRoutes'));
+
 // add port
 const PORT = process.env.PORT || 8080; //port number for the server to listen on.
 

@@ -1,5 +1,46 @@
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
+const Razorpay = require('razorpay');
+
+
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+const createRazorpayOrderController = async (req, res) => {
+    try {
+        const { amount } = req.body; // Amount should be in rupees
+
+        // Convert rupees to paise in the backend
+        const options = {
+            amount: amount * 100, // Amount in paise (smallest currency unit)
+            currency: "INR",
+            receipt: `receipt_order_${Math.random() * 1000}`, // Unique receipt id
+        };
+
+        const order = await razorpay.orders.create(options);
+
+        if (!order) {
+            return res.status(500).send({
+                success: false,
+                message: "Some error occurred while creating Razorpay order"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            order,
+        });
+    } catch (error) {
+        console.error("Error creating Razorpay order", error);
+        res.status(500).send({
+            success: false,
+            message: "Error creating Razorpay order",
+            error,
+        });
+    }
+};
 
 
 const placeOrderController = async (req, res) => {
@@ -109,4 +150,4 @@ const getUserPurchasesController = async (req, res) => {
 };
 
 
-module.exports = { placeOrderController, approveRejectOrderController, getUserPurchasesController };
+module.exports = { placeOrderController, approveRejectOrderController, getUserPurchasesController, createRazorpayOrderController };

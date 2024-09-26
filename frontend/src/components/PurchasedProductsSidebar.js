@@ -6,14 +6,23 @@ import {
   selectProductsLoading,
   selectProductsError,
 } from "../redux/features/product/productSelectors";
+import { selectUser } from "../redux/features/auth/authSelectors"; // Import user selector
 import "./PurchasedProductsSidebar.css";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const PurchasedProductsSidebar = () => {
   const dispatch = useDispatch();
   const purchasedProducts = useSelector(selectPurchasedProducts);
   const loading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
+  const user = useSelector(selectUser); // Get user from Redux state
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   const [showProducts, setShowProducts] = useState(false); // State to toggle visibility
 
@@ -26,8 +35,81 @@ const PurchasedProductsSidebar = () => {
     setShowProducts(!showProducts);
   };
 
-  const handlePayment = () => {
-    toast.success("Payment made successfully!");
+  const handlePayment = async (orderId, amount) => {
+    try {
+      const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
+
+      if (!token) {
+        toast.error("User not authenticated. Please log in.");
+        return;
+      }
+
+      // Make API call to backend to create a Razorpay order
+      const response = await fetch(
+        "http://localhost:8080/api/v1/orders/create-razorpay-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Pass the token here
+          },
+          body: JSON.stringify({ amount }), // Pass the amount in paise
+        }
+      );
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        toast.error(
+          `Failed to create Razorpay order: ${errorResponse.message}`
+        );
+        return;
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        toast.error("Failed to create Razorpay order");
+        return;
+      }
+
+      const { order } = data;
+
+      // Define Razorpay options
+      const options = {
+        key: process.env.RAZORPAY_KEY_ID,
+        amount: amount * 100, // Amount in paise
+        currency: "INR",
+        name: "Your Company Name",
+        description: "Product Payment",
+        order_id: order.id,
+        handler: async function (response) {
+          console.log(response);
+          toast.success("Payment made successfully!");
+
+          // Re-fetch the purchased products to update the status
+          await dispatch(fetchPurchasedProducts());
+        },
+        prefill: {
+          name: user.name || "Customer Name", // Use user's name
+          email: user.email || "customer@example.com", // Use user's email
+          contact: user.phone || "9999999999", // Use user's phone
+        },
+        theme: {
+          color: "#F37254",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+      rzp.on("payment.failed", function (response) {
+        console.error(response.error);
+        toast.error("Payment failed. Please try again.");
+      });
+    } catch (error) {
+      console.error("Error initiating payment", error);
+      toast.error("Error initiating payment");
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -55,21 +137,31 @@ const PurchasedProductsSidebar = () => {
                     <h3>{order.product.productName}</h3>
                     <p>Status: {order.status}</p>
                     <p>Price: ${order.product.price}</p>
-                    <p>Order Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-                    {order.status === 'approved' ? (
-                      <button 
-                        className="payment-button" 
-                        onClick={() => handlePayment(order._id)}
+                    <p>
+                      Order Date:{" "}
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </p>
+                    {order.status === "approved" ? (
+                      <button
+                        className="payment-button"
+                        onClick={() =>
+                          handlePayment(order._id, order.product.price)
+                        } // Pass order ID and price
                       >
                         Make Payment
                       </button>
                     ) : (
-                      <button 
-                        className="payment-button" 
+                      <button
+                        className="payment-button"
                         disabled
-                        style={{ backgroundColor: order.status === 'rejected' ? 'red' : 'gray' }}
+                        style={{
+                          backgroundColor:
+                            order.status === "rejected" ? "red" : "gray",
+                        }}
                       >
-                        {order.status === 'rejected' ? 'Order Rejected' : 'Pending Approval'}
+                        {order.status === "rejected"
+                          ? "Order Rejected"
+                          : "Pending Approval"}
                       </button>
                     )}
                   </>
