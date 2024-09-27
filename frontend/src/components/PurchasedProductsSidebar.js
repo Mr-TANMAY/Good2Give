@@ -6,7 +6,7 @@ import {
   selectProductsLoading,
   selectProductsError,
 } from "../redux/features/product/productSelectors";
-import { selectUser } from "../redux/features/auth/authSelectors"; // Import user selector
+import { selectUser } from "../redux/features/auth/authSelectors";
 import "./PurchasedProductsSidebar.css";
 import { toast } from "react-toastify";
 
@@ -15,7 +15,14 @@ const PurchasedProductsSidebar = () => {
   const purchasedProducts = useSelector(selectPurchasedProducts);
   const loading = useSelector(selectProductsLoading);
   const error = useSelector(selectProductsError);
-  const user = useSelector(selectUser); // Get user from Redux state
+  const user = useSelector(selectUser);
+
+  const [showProducts, setShowProducts] = useState(false); // State to toggle visibility
+  const [paidOrders, setPaidOrders] = useState({}); // Track paid status for each order
+
+  useEffect(() => {
+    dispatch(fetchPurchasedProducts());
+  }, [dispatch]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -24,11 +31,11 @@ const PurchasedProductsSidebar = () => {
     document.body.appendChild(script);
   }, []);
 
-  const [showProducts, setShowProducts] = useState(false); // State to toggle visibility
-
+  // Load the paid orders from localStorage on component mount
   useEffect(() => {
-    dispatch(fetchPurchasedProducts());
-  }, [dispatch]);
+    const storedPaidOrders = JSON.parse(localStorage.getItem("paidOrders")) || {};
+    setPaidOrders(storedPaidOrders);
+  }, []);
 
   // Toggle function
   const toggleShowProducts = () => {
@@ -37,7 +44,7 @@ const PurchasedProductsSidebar = () => {
 
   const handlePayment = async (orderId, amount) => {
     try {
-      const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
+      const token = localStorage.getItem("token");
 
       if (!token) {
         toast.error("User not authenticated. Please log in.");
@@ -59,22 +66,13 @@ const PurchasedProductsSidebar = () => {
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        toast.error(
-          `Failed to create Razorpay order: ${errorResponse.message}`
-        );
+        toast.error(`Failed to create Razorpay order: ${errorResponse.message}`);
         return;
       }
 
       const data = await response.json();
-
-      if (!data.success) {
-        toast.error("Failed to create Razorpay order");
-        return;
-      }
-
       const { order } = data;
 
-      // Define Razorpay options
       const options = {
         key: process.env.RAZORPAY_KEY_ID,
         amount: amount * 100, // Amount in paise
@@ -83,16 +81,25 @@ const PurchasedProductsSidebar = () => {
         description: "Product Payment",
         order_id: order.id,
         handler: async function (response) {
-          console.log(response);
           toast.success("Payment made successfully!");
 
-          // Re-fetch the purchased products to update the status
+          // Update the state to reflect payment success for the specific order
+          setPaidOrders((prev) => {
+            const updatedPaidOrders = { ...prev, [orderId]: true };
+
+            // Persist the paid orders in localStorage
+            localStorage.setItem("paidOrders", JSON.stringify(updatedPaidOrders));
+
+            return updatedPaidOrders;
+          });
+
+          // Re-fetch the purchased products to update the status if needed
           await dispatch(fetchPurchasedProducts());
         },
         prefill: {
-          name: user.name || "Customer Name", // Use user's name
-          email: user.email || "customer@example.com", // Use user's email
-          contact: user.phone || "9999999999", // Use user's phone
+          name: user?.name || "Customer Name",
+          email: user?.email || "customer@example.com",
+          contact: user?.phone || "9999999999",
         },
         theme: {
           color: "#F37254",
@@ -142,14 +149,20 @@ const PurchasedProductsSidebar = () => {
                       {new Date(order.createdAt).toLocaleDateString()}
                     </p>
                     {order.status === "approved" ? (
-                      <button
-                        className="payment-button"
-                        onClick={() =>
-                          handlePayment(order._id, order.product.price)
-                        } // Pass order ID and price
-                      >
-                        Make Payment
-                      </button>
+                      paidOrders[order._id] ? (
+                        <button className="payment-button done">
+                          Payment Done
+                        </button>
+                      ) : (
+                        <button
+                          className="payment-button"
+                          onClick={() =>
+                            handlePayment(order._id, order.product.price)
+                          }
+                        >
+                          Make Payment
+                        </button>
+                      )
                     ) : (
                       <button
                         className="payment-button"
