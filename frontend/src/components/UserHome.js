@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageSlider from '../components/ImageSlider';
 import ProductList from './produts/ProductList';
-import './StoreHome.css';
+import './UserHome.css';
 import PurchasedProductsSidebar from './PurchasedProductsSidebar';
 function UserHome() {
     return (

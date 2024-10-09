@@ -10,7 +10,7 @@ header {
 }
 
 .logo {
-    flex: 1;
+    flex: 0 0 auto; /* Prevent flex-grow, keep logo size fixed */
 }
 
 .logo-text {
@@ -22,7 +22,7 @@ header {
 }
 
 .nav-center {
-    flex: 2;
+    flex: 1; /* Allow center navigation to take remaining space */
     display: flex;
     justify-content: center;
 }
@@ -36,7 +36,6 @@ nav ul {
 
 nav ul li {
     margin: 0 20px; /* Space between menu items */
-    max-width: 150px; /* Max width to prevent overflow */
 }
 
 nav ul li a {
@@ -44,11 +43,7 @@ nav ul li a {
     text-decoration: none;
     font-size: 18px; /* Font size for menu items */
     transition: color 0.3s ease; /* Smooth color transition */
-    max-width: 150px; /* Max width for wrapping */
-    display: inline-block;
-    word-wrap: break-word; /* Wrap long words */
-    white-space: normal; /* Allow text to wrap */
-    
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 nav ul li a.active {
@@ -60,15 +55,13 @@ nav ul li a.active {
 /* Styles for the "Welcome, user role" text */
 nav ul li {
     max-width: 150px; /* Control width for user role */
-    word-wrap: break-word; /* Wrap long words */
-    white-space: normal; /* Allow text to wrap */
 }
 
+/* Header Icons */
 .header-icons {
     display: flex;
     align-items: center;
-    flex: 1;
-    justify-content: flex-end;
+    flex: 0 0 auto; /* Prevent flex-grow, keep icon size fixed */
 }
 
 .header-icons a {
