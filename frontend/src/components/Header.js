@@ -86,7 +86,7 @@ function Header() {
                         </div>
                     </li>
                     <li>
-                        <Link to="/about" className={currentPath === "/about" ? "active" : ""}>About</Link>
+                        <Link to="/about" className={currentPath === "/about" ? "active" : ""}>About us</Link>
                     </li>
                     <li>
                         <Link to="/contact" className={currentPath === "/contact" ? "active" : ""}>Contact</Link>

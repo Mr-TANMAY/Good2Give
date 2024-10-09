@@ -1,120 +1,229 @@
+/* Base Styling (Light Mode) */
+:root {
+  --primary-color: #28a745; /* Main Green */
+  --secondary-color: #218838; /* Darker Green for Hover */
+  --background-light: #ffffff;
+  --background-dark: #f9f9f9;
+  --text-color-light: #333;
+  --text-color-muted: #666;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-background: #f7f7f7;
+}
+
+body.dark-mode {
+  --primary-color: #34c759; /* Brighter Green for Dark Mode */
+  --secondary-color: #218838; /* Darker Hover Green */
+  --background-light: #1c1c1c;
+  --background-dark: #2c2c2c;
+  --text-color-light: #f1f1f1;
+  --text-color-muted: #bbbbbb;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  --card-background: #3a3a3a;
+}
+
+/* Sidebar Styling */
 .sidebar {
   width: 100%;
-  max-width: 100%; /* Allow the sidebar to stretch horizontally */
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Enable horizontal scrolling */
-  white-space: nowrap; /* Prevent wrapping of elements */
+  max-width: 100%;
+  background: var(--background-light);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  overflow-x: auto;
+  white-space: nowrap;
+  transition: background-color 0.4s ease, box-shadow 0.3s ease;
 }
 
+body.dark-mode .sidebar {
+  background: var(--background-dark);
+}
+
+/* Sidebar Header */
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 20px;
   text-align: left;
-  color: #333;
+  color: var(--text-color-light);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-left: 5px solid var(--primary-color);
+  padding-left: 12px;
+  transition: color 0.3s ease, border-left 0.4s ease;
 }
 
+h2:hover {
+  color: var(--primary-color);
+  border-left: 5px solid var(--secondary-color);
+}
+
+/* Toggle Button Styling */
 .toggle-button {
-  width: auto;
-  padding: 12px 20px;
-  font-size: 1rem;
-  background-color: #007bff;
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
+  margin-bottom: 25px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .toggle-button:hover {
-  background-color: #0056b3;
+  background-color: var(--secondary-color);
+  transform: translateY(-4px);
 }
 
 /* Horizontal Product List Styles */
 .product-list {
   list-style: none;
   padding: 0;
-  display: flex; /* Display items in a row */
-  gap: 20px; /* Add space between product items */
-  white-space: nowrap; /* Prevent wrapping of items */
+  display: flex;
+  gap: 25px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .product-item {
-  background-color: #f7f7f7;
+  background: var(--card-background);
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  flex: 0 0 250px; /* Fixed width for each product card */
-  display: inline-block; /* Ensure it behaves as a block item within horizontal flow */
-  transition: box-shadow 0.3s ease;
+  padding: 25px;
+  flex: 0 0 270px;
+  display: inline-block;
+  transition: transform 0.4s ease;
 }
 
 .product-item:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
 }
 
+/* Product Item Content */
 .product-item h3 {
-  margin: 0 0 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
+  margin: 0 0 12px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-color-light);
+  transition: color 0.3s ease;
+}
+
+.product-item h3:hover {
+  color: var(--primary-color);
 }
 
 .product-item p {
-  margin: 8px 0;
-  font-size: 0.95rem;
-  color: #666;
+  margin: 10px 0;
+  font-size: 1rem;
+  color: var(--text-color-muted);
+  line-height: 1.5;
 }
 
 .product-item .status,
 .product-item .price,
 .product-item .order-date {
   display: block;
-  margin: 10px 0;
+  margin: 12px 0;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .status {
-  color: #28a745;
+  color: var(--primary-color);
 }
 
 .price {
-  color: #ff8c00;
+  color: var(--text-color-muted);
 }
 
 .order-date {
-  color: #888;
+  color: var(--text-color-muted);
 }
 
-/* Payment Button Styles */
+/* Payment Button */
 .payment-button {
   width: 100%;
-  padding: 12px;
-  background-color: #28a745;
+  padding: 15px;
+  background-color: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  margin-top: 15px;
-  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .payment-button:disabled {
-  background-color: #d9534f;
+  background-color: var(--error-color);
   cursor: not-allowed;
 }
 
 .payment-button:hover:not(:disabled) {
-  background-color: #218838;
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
 }
 
-/* Error message */
-.error-message {
-  color: red;
-  text-align: center;
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 20px;
+  }
+
+  .toggle-button {
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+
+  .product-item {
+    flex: 0 0 220px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggle-button {
+    font-size: 0.9rem;
+    padding: 10px 18px;
+  }
+
+  .product-item {
+    flex: 0 0 180px;
+    padding: 15px;
+  }
+}
+/* Toggle Button Styling */
+.toggle-button {
+  width: 500px; /* Set a fixed width for the button */
+  padding: 10px 0; /* Reduced horizontal padding */
+  font-size: 1.2rem; /* Font size remains the same */
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px; /* Slightly more rounded corners */
+  cursor: pointer;
+  margin-bottom: 15px; /* Less margin for compactness */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px); /* Smaller lift effect */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .toggle-button {
+    width: 70px; /* Adjust width for medium screens */
+    padding: 6px 0; /* Further reduce padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .toggle-button {
+    width: 60px; /* Adjust width for mobile screens */
+    padding: 5px 0; /* Further reduce padding */
+  }
 }

@@ -1,72 +1,146 @@
+/* Base Styling (Light Mode) */
 .admin-order-management {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .admin-order-management h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .order-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Light background for light mode */
+  color: #333; /* Light mode text color */
+}
+
+.admin-order-management h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Increased font size for header */
+  color: #4CAF50; /* Header color */
+}
+
+.order-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.2s ease; /* Smooth transition on hover */
+}
+
+.order-card:hover {
+  transform: scale(1.02); /* Slight zoom effect on hover */
+}
+
+.order-card h3 {
+  margin: 0 0 10px;
+  overflow-wrap: break-word;
+  font-size: 1.5rem; /* Increased font size for card titles */
+  color: #333; /* Title color */
+}
+
+.order-card p {
+  margin: 5px 0;
+  overflow-wrap: break-word;
+  color: #666; /* Subtle text color for paragraphs */
+}
+
+.order-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center; /* Centering buttons */
+}
+
+.order-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.order-actions .approve-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.order-actions .reject-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.order-actions button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .admin-order-management {
+  background-color: #1c1c1c; /* Dark background for dark mode */
+  color: #f1f1f1; /* Light text color */
+}
+
+body.dark-mode .admin-order-management h1 {
+  color: #34c759; /* Bright header color */
+}
+
+body.dark-mode .order-card {
+  background-color: #2c2c2c; /* Darker card background */
+  border: 1px solid #444; /* Darker border */
+}
+
+body.dark-mode .order-card h3,
+body.dark-mode .order-card p {
+  color: #f1f1f1; /* Light text color for card content */
+}
+
+body.dark-mode .order-actions .approve-button {
+  background-color: #4CAF50;
+}
+
+body.dark-mode .order-actions .reject-button {
+  background-color: #f44336;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
   .order-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensures content doesn't overflow */
-    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    width: 90%; /* Full width on smaller screens */
   }
-  
-  .order-card h3 {
-    margin: 0 0 10px;
-    overflow-wrap: break-word; /* Ensures long text breaks within the card */
+
+  .admin-order-management h1 {
+    font-size: 1.8rem; /* Adjusted font size for smaller screens */
   }
-  
-  .order-card p {
-    margin: 5px 0;
-    overflow-wrap: break-word; /* Ensures long text breaks within the card */
+}
+
+@media (max-width: 480px) {
+  .admin-order-management {
+    padding: 15px; /* Reduced padding for mobile */
   }
-  
-  .order-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+
+  .order-card {
+    width: 100%; /* Full width for mobile */
+    padding: 10px; /* Reduced padding */
   }
-  
+
+  .admin-order-management h1 {
+    font-size: 1.5rem; /* Further adjust font size */
+  }
+
   .order-actions button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px; /* Adjust font size to ensure buttons fit well */
+    font-size: 12px; /* Smaller buttons on mobile */
+    padding: 8px 10px; /* Reduced padding */
   }
-  
-  .order-actions .approve-button {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  .order-actions .reject-button {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .order-actions button:hover {
-    opacity: 0.9;
-  }
-  
-  .error-message {
-    color: red;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+}
