@@ -77,7 +77,7 @@ const PurchasedProductsSidebar = () => {
         key: process.env.RAZORPAY_KEY_ID,
         amount: amount * 100, // Amount in paise
         currency: "INR",
-        name: "Your Company Name",
+        name: user?.name || user?.organisationName || "Your Company Name",
         description: "Product Payment",
         order_id: order.id,
         handler: async function (response) {
