@@ -13,7 +13,6 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Cart from "./pages/Cart";
 import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
 import PublicRoute from "./components/Routes/PublicRoute";
 import Organisation from "./pages/Organisation";
@@ -28,7 +27,6 @@ import Article from './pages/Article';
 import Faq from './pages/Faq';
 
 function App() {
-  const [cart] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -62,10 +60,7 @@ function App() {
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/article" element={<Article />} />
         <Route path="/faq" element={<Faq />} />
-        
-        {/* Cart is accessible without login */}
-        <Route path="/cart" element={<Cart cart={cart} />} />
-
+       
         {/* Protected Routes */}
         <Route
           path="/admin"
