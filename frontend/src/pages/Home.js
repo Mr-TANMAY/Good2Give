@@ -25,7 +25,7 @@ function Home() {
           <Goals />
           <FoodWasteQuiz />
           <ImpactMetrics />
-          <Testimonials /> {/* Add Testimonials below Statistics */}
+          <Testimonials /> 
         </>
       );
     }

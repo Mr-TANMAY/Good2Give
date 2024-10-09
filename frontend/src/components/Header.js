@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
-import { FaUser, FaShoppingCart } from 'react-icons/fa';
+import { FaUser,} from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/features/auth/authAction'; // Correct import for logout action
@@ -100,9 +100,6 @@ function Header() {
                 </ul>
             </nav>
             <div className="header-icons">
-                <Link to="/cart">
-                    <FaShoppingCart size={30} />  {/* Cart icon */}
-                </Link>
                 <div
                     className="user-icon"
                     onMouseEnter={showUserDropdown}

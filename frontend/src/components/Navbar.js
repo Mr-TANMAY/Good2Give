@@ -25,7 +25,6 @@ function Navbar() {
                         {user?.role === "store" && <li><Link to="/store">Store Dashboard</Link></li>}
                         {user?.role === "organisation" && <li><Link to="/organisation">Organisation Dashboard</Link></li>}
                         {user?.role === "hotel" && <li><Link to="/hotels">Hotel Dashboard</Link></li>}
-                        <li><Link to="/cart">Cart</Link></li>
                     </>
                 ) : (
                     <>
