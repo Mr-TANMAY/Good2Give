@@ -204,7 +204,7 @@ const AddProductForm = () => {
           />
           <p>Enter Product Quantity</p>
           <input
-            type="number"
+            type="text"
             name="quantity"
             placeholder="Enter Quantity..."
             value={formData.quantity}

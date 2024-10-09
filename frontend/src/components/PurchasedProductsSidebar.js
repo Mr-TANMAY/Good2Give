@@ -143,7 +143,7 @@ const PurchasedProductsSidebar = () => {
                   <>
                     <h3>{order.product.productName}</h3>
                     <p>Status: {order.status}</p>
-                    <p>Price: ${order.product.price}</p>
+                    <p>Price: ₹{order.product.price}</p>
                     <p>
                       Order Date:{" "}
                       {new Date(order.createdAt).toLocaleDateString()}
