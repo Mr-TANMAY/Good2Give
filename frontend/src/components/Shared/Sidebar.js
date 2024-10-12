@@ -69,7 +69,6 @@ const Sidebar = () => {
                 <button 
                   className="delete-button" 
                   onClick={() => handleDeleteProduct(product._id)}
-                  disabled={product.status === 'sold'}
                 >
                   Delete
                 </button>

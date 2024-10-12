@@ -178,12 +178,14 @@
   margin-bottom: 30px; /* More space below the search bar */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  color: black;
 }
 
 /* Focus effect for the search bar */
 .search-bar:focus {
   border-color: #007bff; /* Highlight border color on focus */
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.25); /* Enhanced shadow */
+  box-shadow: 0 2px 8px rgba(254, 254, 254, 0.25); /* Enhanced shadow */
 }
 
 /* Responsive styles */

@@ -3,6 +3,7 @@ import InputType from "./InputType";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin, userRegister } from "../../../redux/features/auth/authAction";
+import { toast } from "react-toastify"; // Import react-toastify for toast messages
 
 export const Form = ({ formType, submitBtn, fromTitle }) => {
   const [email, setEmail] = useState("");
@@ -17,14 +18,54 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Simple validation for required fields
+    if (!email) {
+      toast.error("Please provide an email");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Please provide a password");
+      return;
+    }
+
+    if (formType === "Register") {
+      if (role === "organisation" && !organisationName) {
+        toast.error("Please provide an organisation name");
+        return;
+      }
+
+      if (role === "hotel" && !hotelName) {
+        toast.error("Please provide a hotel name");
+        return;
+      }
+
+      if (role === "stores" && !storeName) {
+        toast.error("Please provide a store name");
+        return;
+      }
+
+      if (!address) {
+        toast.error("Please provide an address");
+        return;
+      }
+
+      if (!phone) {
+        toast.error("Please provide a phone number");
+        return;
+      }
+    }
+
+    // If formType is Login, proceed with login request
     if (formType === "Login") {
       await dispatch(userLogin({ email, password, role }));
-      
-    } else if (formType === "Register") {
+    } 
+    // If formType is Register, proceed with registration request
+    else if (formType === "Register") {
       await dispatch(userRegister({
         role,
         name,
@@ -36,11 +77,11 @@ export const Form = ({ formType, submitBtn, fromTitle }) => {
         address,
         phone,
       }));
-      navigate('/login'); // Redirect to login after registration
+      
+      // Navigate to login only after successful registration
+      navigate("/login");
     }
   };
-  
-  
 
   return (
     <div>

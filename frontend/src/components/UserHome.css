@@ -154,7 +154,7 @@
 /* Focus effect for the search bar */
 .search-bar:focus {
     border-color: var(--success-color); /* Highlight border color on focus */
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.25); /* Enhanced shadow */
+    box-shadow: 0 2px 8px rgba(245, 246, 247, 0.25); /* Enhanced shadow */
 }
 
 /* Dark mode styles for the search bar */
