@@ -1,58 +1,64 @@
-
+/* Light Mode */
 .add-product-container {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin: 20px auto;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* Reduced the width */
+  margin: 30px auto;
   font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .sell-btn {
-  background-color: #007bff;
+  background-color: #0069d9;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 16px; /* Reduced font size */
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .sell-btn:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 .add-product-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px; /* Reduced the gap */
 }
 
 .image-section {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .image-options {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .toggle-btn {
   background-color: #17a2b8;
   color: white;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 14px; /* Reduced font size */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .toggle-btn:hover {
   background-color: #138496;
+  transform: scale(1.05);
 }
 
 .camera-section {
@@ -65,8 +71,9 @@
 .webcam-view {
   width: 100%;
   height: auto;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  border-radius: 8px; /* Reduced corner radius */
+  margin-bottom: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .capture-btn {
@@ -74,19 +81,21 @@
   color: white;
   padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .capture-btn:hover {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
 .preview-image {
   width: 100%;
   height: auto;
-  margin-top: 10px;
-  border-radius: 8px;
+  margin-top: 8px;
+  border-radius: 6px; /* Reduced corner radius */
   border: 2px solid #007bff;
 }
 
@@ -94,9 +103,16 @@
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 14px; /* Reduced font size */
   margin-bottom: 10px;
+  background-color: #fdfdfd;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
 }
 
 .submit-btn {
@@ -104,9 +120,10 @@
   color: white;
   padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .submit-btn:disabled {
@@ -116,10 +133,57 @@
 
 .submit-btn:hover:not(:disabled) {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
 p {
-  font-size: 14px;
+  font-size: 15px; /* Reduced font size */
   margin-bottom: 5px;
   color: #333;
+  font-weight: bold;
+}
+
+/* Dark Mode */
+body.dark-mode .add-product-container {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+body.dark-mode .sell-btn {
+  background-color: #0056b3;
+}
+
+body.dark-mode .sell-btn:hover {
+  background-color: #0041a5;
+}
+
+body.dark-mode .toggle-btn {
+  background-color: #138496;
+}
+
+body.dark-mode .toggle-btn:hover {
+  background-color: #0e6b7b;
+}
+
+body.dark-mode .form-input {
+  background-color: #444;
+  border: 1px solid #555;
+  color: #f0f0f0;
+}
+
+body.dark-mode .form-input:focus {
+  border-color: #77bdf3;
+  box-shadow: 0 0 6px rgba(119, 189, 243, 0.2);
+}
+
+body.dark-mode .submit-btn {
+  background-color: #19682d;
+}
+
+body.dark-mode .submit-btn:hover:not(:disabled) {
+  background-color: #145523;
+}
+
+body.dark-mode p {
+  color: #ddd;
 }
