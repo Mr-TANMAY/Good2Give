@@ -63,7 +63,7 @@ const AddProductForm = () => {
       toast.error("Valid MRP price is required");
       return false;
     }
-    if (!discountedPrice || discountedPrice <= 0 || discountedPrice >= price) {
+    if (!discountedPrice ) {
       toast.error("Valid discounted price is required (should be less than MRP)");
       return false;
     }
