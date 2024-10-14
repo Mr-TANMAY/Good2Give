@@ -143,7 +143,7 @@ const PurchasedProductsSidebar = () => {
                   <>
                     <h3>{order.product.productName}</h3>
                     <p>Status: {order.status}</p>
-                    <p>Price: ₹{order.product.price}</p>
+                    <p>Price: ₹{order.product.discountedPrice}</p>
                     <p>
                       Order Date:{" "}
                       {new Date(order.createdAt).toLocaleDateString()}
@@ -157,7 +157,7 @@ const PurchasedProductsSidebar = () => {
                         <button
                           className="payment-button"
                           onClick={() =>
-                            handlePayment(order._id, order.product.price)
+                            handlePayment(order._id, order.product.discountedPrice)
                           }
                         >
                           Make Payment

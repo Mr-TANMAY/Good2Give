@@ -48,11 +48,52 @@ const AddProductForm = () => {
     }
   };
 
+  // Form validation logic
+  const validateForm = () => {
+    const { productName,description, price, discountedPrice, expiryDate, quantity, pincode, address } = formData;
+    if (!productName.trim()) {
+      toast.error("Product name is required");
+      return false;
+    }
+    if(!description){
+      toast.error("Valid description is required");
+      return false;
+    }
+    if (!price || price <= 0) {
+      toast.error("Valid MRP price is required");
+      return false;
+    }
+    if (!discountedPrice || discountedPrice <= 0 || discountedPrice >= price) {
+      toast.error("Valid discounted price is required (should be less than MRP)");
+      return false;
+    }
+    if (!expiryDate) {
+      toast.error("Expiry date is required");
+      return false;
+    }
+    if (!quantity) {
+      toast.error("Valid quantity is required");
+      return false;
+    }
+    if (!pincode || pincode.length !== 6 || isNaN(pincode)) {
+      toast.error("Valid 6-digit pincode is required");
+      return false;
+    }
+    if (!address.trim()) {
+      toast.error("Address is required");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSubmitting) return;
-    setIsSubmitting(true);
 
+    // Validate form data before submitting
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
     const token = localStorage.getItem("token");
 
     // Create a FormData object to send the image and other fields
@@ -94,6 +135,7 @@ const AddProductForm = () => {
       })
       .catch((error) => {
         console.error("Error adding product:", error.response?.data);
+        toast.error("Error adding product. Please try again.");
         setIsSubmitting(false);
       });
   };

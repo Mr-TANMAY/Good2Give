@@ -93,8 +93,8 @@ function Header() {
                     </li>
                     {user && (
                         <li>
-                            <BiUserCircle /> Welcome, {user?.role} &nbsp;
-                            <span className="badge text-bg-secondary">{user?.role}</span> {/* Show user role when logged in */}
+                            <BiUserCircle /> Welcome, {user?.name|| user?.organisationName || user?.hotelName ||user?.storeName} &nbsp;
+                            <span className="badge text-bg-secondary">{user?.name|| user?.organisationName || user?.hotelName ||user?.storeName }</span>
                         </li>
                     )}
                 </ul>
